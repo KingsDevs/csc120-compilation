@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('index.html', title="CSC 120 Compilation")
 
 @app.route('/rl')
 def serve_webgl():

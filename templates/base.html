@@ -38,6 +38,20 @@
 
         <nav class="navbar navbar-expand-lg">
             <div class="container">
+                <a class="navbar-brand me-lg-5 me-0" href="index.html">
+                    <img src="images/pod-talk-logo.png" class="logo-image img-fluid" alt="templatemo pod talk">
+                </a>
+
+                <form action="#" method="get" class="custom-form search-form flex-fill me-3" role="search">
+                    <div class="input-group input-group-lg">
+                        <input name="search" type="search" class="form-control" id="search" placeholder="Search Podcast"
+                            aria-label="Search">
+
+                        <button type="submit" class="form-control" id="submit">
+                            <i class="bi-search"></i>
+                        </button>
+                    </div>
+                </form>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,12 +91,22 @@
             </div>
         </nav>
 
+        <header class="site-header d-flex flex-column justify-content-center align-items">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-12 text-center">
+                        <h2 class="mb-0">{{ title }}</h2>
+                    </div>
+                </div>
+            </div>
+        </header>
+
 
         <div id="content">
             {% block content %}{% endblock %}
         </div>
 
-
+    </main>
 
     <footer class="site-footer">
         <div class="container">
