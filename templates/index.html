@@ -1,5 +1,129 @@
 {% extends "base.html" %}
 
 {% block content %}
-    
+    <section class="trending-podcast-section section-padding">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-12 col-12">
+                    <div class="section-title-wrap mb-5">
+                        <h4 class="section-title">Intelligent Systems Topics</h4>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-12 mb-4 mb-lg-0">
+                    <div class="custom-block custom-block-full">
+                        <div class="custom-block-image-wrap">
+                            <a href="/linear-regression">
+                                <img src="{{ url_for('static', filename='images/linearregression.png') }}" alt="can't load" class="custom-block-image img-fluid">
+                            </a>
+                        </div>
+
+                        <div class="custom-block-info">
+                            <h5 class="mb-2">
+                                <a href="/linear-regression">
+                                    Linear Regression
+                                </a>
+                            </h5>
+
+                            <p class="mb-0">
+                                Linear regression is a statistical modeling technique that predicts a dependent variable based on the linear relationship with one or more independent variables.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-12 mb-4 mb-lg-0">
+                    <div class="custom-block custom-block-full">
+                        <div class="custom-block-image-wrap">
+                            <a href="/logistic-regression">
+                                <img src="{{ url_for('static', filename='images/logistic-regression.webp') }}" alt="can't load" class="custom-block-image img-fluid">
+                            </a>
+                        </div>
+
+                        <div class="custom-block-info">
+                            <h5 class="mb-2">
+                                <a href="/logistic-regression">
+                                    Logistic Regression
+                                </a>
+                            </h5>
+
+                            <p class="mb-0">
+                                Logistic regression is a statistical modeling technique that predicts the probability of a binary outcome by fitting a logistic function to the relationship between the dependent variable and one or more independent variables.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-12 mb-4 mb-lg-0">
+                    <div class="custom-block custom-block-full">
+                        <div class="custom-block-image-wrap">
+                            <a href="/neural-network">
+                                <img src="{{ url_for('static', filename='images/neural-network.gif') }}" alt="can't load" class="custom-block-image img-fluid">
+                            </a>
+                        </div>
+
+                        <div class="custom-block-info">
+                            <h5 class="mb-2">
+                                <a href="/neural-network">
+                                    Vanilla Neural Network
+                                </a>
+                            </h5>
+
+                            <p class="mb-0">                   
+                                A vanilla neural network, also known as a feedforward neural network, is a type of artificial neural network in which information flows in one direction from the input layer to the output layer, without any loops or recurrent connections.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-4 col-12 mb-4 mb-lg-0">
+                    <div class="custom-block custom-block-full">
+                        <div class="custom-block-image-wrap">
+                            <a href="/deep-learning">
+                                <img src="{{ url_for('static', filename='images/deep-learning.webp') }}" alt="can't load" class="custom-block-image img-fluid">
+                            </a>
+                        </div>
+
+                        <div class="custom-block-info">
+                            <h5 class="mb-2">
+                                <a href="/deep-learning">
+                                    Deep Learning
+                                </a>
+                            </h5>
+
+                            <p class="mb-0">                   
+                                Deep learning is a subset of machine learning that uses artificial neural networks with multiple layers to learn and extract intricate patterns and representations from complex data.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-12 mb-4 mb-lg-0">
+                    <div class="custom-block custom-block-full">
+                        <div class="custom-block-image-wrap">
+                            <a href="/reinforcement-learning">
+                                <img src="{{ url_for('static', filename='images/reinforcement-learning.png') }}" alt="can't load" class="custom-block-image img-fluid">
+                            </a>
+                        </div>
+
+                        <div class="custom-block-info">
+                            <h5 class="mb-2">
+                                <a href="/reinforcement-learning">
+                                    Deep Reinforcement Learning
+                                </a>
+                            </h5>
+
+                            <p class="mb-0">                   
+                                Deep reinforcement learning is a subfield of machine learning that combines deep learning techniques with reinforcement learning algorithms to enable agents to learn and make decisions in complex environments through trial-and-error interactions.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
 {% endblock %}
