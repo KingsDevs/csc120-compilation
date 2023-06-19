@@ -8,6 +8,10 @@ app = Flask(__name__)
 def home():
     return render_template('index.html', title="CSC 120 Compilation")
 
+@app.route('/linear-regression')
+def lr():
+    return render_template('linear-regression.html', title="Linear Regression")
+
 @app.route('/rl')
 def serve_webgl():
     return render_template("rl-game.html")
