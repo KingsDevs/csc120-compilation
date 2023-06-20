@@ -19,6 +19,22 @@ def home():
 def lr():
     return render_template('linear-regression.html', title="Linear Regression")
 
+@app.route('/logistic-regression')
+def logistic_regression():
+    return render_template('logisticregression.html', title="Logistic Regression")
+
+@app.route('/neural-network')
+def Vanilla_Neural_Network():
+    return render_template('vanillaneuralnetwork.html', title="Vanilla Neural Network")
+
+@app.route('/deep-learning')
+def Deep_Learning():
+    return render_template('deeplearning.html', title="Deep Learning")
+
+@app.route('/reinforcement-learning')
+def Deep_Reinforcement_learning():
+    return render_template('deepreinforcementlearning.html', title="Deep Reinforcement Learning")
+
 @app.route('/car-price-prediction')
 def car_price_prediction():
     return render_template('carpriceprediction.html', title="Car Price Prediction")
