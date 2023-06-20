@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+<div v-if="loading">
+    <div id="loading-overlay">
+        <div id="loading-spinner"></div>
+    </div>
+</div>
 <div class="section-padding" id="main-content">
     <div class="container">
         <div class="row justify-content-center">
@@ -66,7 +70,8 @@
                     citympg: 0,
                     highwaympg: 0
 
-                }
+                },
+                loading: false
             }
         },
         
@@ -86,6 +91,8 @@
                 this.inputData.citympg = +this.inputData.citympg
                 this.inputData.highwaympg = +this.inputData.highwaympg
                 console.log(this.inputData)
+
+                this.loading = true
                 
                 axios.post(url, this.inputData, {
                     headers : {
@@ -93,11 +100,12 @@
                     }
                 }).then(response => {
                     this.prediction = response.data.prediction
+                    this.loading = false
                 })
 
             }
         }
-    }).mount('#content')
+    }).mount('#app')
 </script>
 
 {% endblock %}
