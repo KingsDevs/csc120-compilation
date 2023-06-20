@@ -38,6 +38,10 @@ def stroke_prediction():
 def breast_cancer_prediction():
     return render_template('breastcancerprediction.html', title="Breast Cancer Prediction")
 
+@app.route('/tomato-leaf-disease-prediction')
+def tomato_leaf_disease_prediction():
+    return render_template("tomatoleafdiseaseprediction.html", title="Tomato Leaf Disease Prediction")
+
 @app.route('/rl')
 def serve_webgl():
     return render_template("rl-game.html")
