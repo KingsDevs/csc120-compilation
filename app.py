@@ -33,7 +33,7 @@ def stroke_prediction():
 
 @app.route('/breast-cancer-prediction')
 def breast_cancer_prediction():
-    pass
+    return render_template('breastcancerprediction.html', title="Breast Cancer Prediction")
 
 @app.route('/rl')
 def serve_webgl():
