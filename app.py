@@ -31,6 +31,10 @@ def car_price_prediction():
 def stroke_prediction():
     return render_template("strokeprediction.html", title="Stroke Probability Prediction")
 
+@app.route('/breast-cancer-prediction')
+def breast_cancer_prediction():
+    pass
+
 @app.route('/rl')
 def serve_webgl():
     return render_template("rl-game.html")
