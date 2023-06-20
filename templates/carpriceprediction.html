@@ -32,13 +32,13 @@
                     <input type="range" class="form-range" min="0" max="50" step="1" id="highwaympg" v-model="inputData.highwaympg">
 
                     <div class="d-grid">
-                        <button class="btn btn-success">Predict</button>
+                        <button class="btn btn-success" v-on:click="get_prediction">Predict</button>
                     </div>
                 </div>
             </div>
 
             <div class="col-lg-5 col-12 mt-5 mt-lg-0">
-                <h3 class="mb-4 text-center" v-on:click="get_prediction">Prediction</h3>
+                <h3 class="mb-4 text-center">Prediction</h3>
                 <h1 class="text-center">{% raw %} {{ prediction }} {% endraw %}</h1>
             </div>
         </div>
@@ -76,7 +76,7 @@
 
         methods: {
             async get_prediction() {
-                const url = window.location.origin + "/predict"
+                const url = window.location.origin + "/predict/car-price-prediction"
                 
                 this.inputData.engineSize = +this.inputData.engineSize
                 this.inputData.boreratio = +this.inputData.boreratio

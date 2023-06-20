@@ -1,5 +1,7 @@
 from flask import Flask, render_template, jsonify, request
 import numpy as np
+import sklearn
+from sklearn import linear_model
 import pickle
 
 
@@ -25,7 +27,7 @@ def serve_webgl():
     return render_template("rl-game.html")
 
 
-@app.route('/predict/car-price-prediction')
+@app.route('/predict/car-price-prediction', methods=['POST'])
 def predict_car_price():
     data = request.get_json()
     data = [data['engineSize'], data['boreratio'], data['compressionratio'], data['horsepower'], data['peakrpm'], data['citympg'], data['highwaympg']]
@@ -35,12 +37,9 @@ def predict_car_price():
 
     return jsonify({'prediction': prediction[0]})
 
-def load_models():
-    model_file = open("mlmodels/car_price_prediction.pickle", "rb")
-    car_price_prediction_model = pickle.load(model_file)
-
 
 if __name__ == '__main__':
-    load_models()
+    model_file = open("mlmodels/car_price_prediction.pickle", "rb")
+    car_price_prediction_model = pickle.load(model_file)
     app.run(debug=True)
 
