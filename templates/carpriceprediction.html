@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="section-padding">
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <div class="col-lg-5 col-12 pe-lg-5">
+                <div class="contact-info">
+                    <h3 class="mb-4">Car Price Prediction</h3>
+                    
+                    <label for="engineSize" class="form-label">Engine Size: {% raw %} {{ inputData.engineSize }} {% endraw %}</label>
+                    <input type="range" class="form-range" min="0" max="300" step="1" id="engineSize" v-model="inputData.engineSize">
+
+                    <label for="boreratio" class="form-label">Bore Ratio: {% raw %} {{ inputData.boreratio }} {% endraw %}</label>
+                    <input type="range" class="form-range" min="0" max="4" step="0.1" id="boreratio" v-model="inputData.boreratio">
+
+                    <label for="compressionratio" class="form-label">Compression Ratio: {% raw %} {{ inputData.compressionratio }} {% endraw %}</label>
+                    <input type="range" class="form-range" min="0" max="23" step="0.1" id="compressionratio" v-model="inputData.compressionratio">
+
+                    <label for="horsepower" class="form-label">Horse Power: {% raw %} {{ inputData.horsepower }} {% endraw %}</label>
+                    <input type="range" class="form-range" min="0" max="300" step="1" id="horsepower" v-model="inputData.horsepower">
+
+                    <label for="peakrpm" class="form-label">Peak RPM: {% raw %} {{ inputData.peakrpm }} {% endraw %}</label>
+                    <input type="range" class="form-range" min="3000" max="7000" step="1" id="peakrpm" v-model="inputData.peakrpm">
+
+                    <label for="citympg" class="form-label">City MPG: {% raw %} {{ inputData.citympg }} {% endraw %}</label>
+                    <input type="range" class="form-range" min="0" max="50" step="1" id="citympg" v-model="inputData.citympg">
+
+                    <label for="highwaympg" class="form-label">Highway MPG: {% raw %} {{ inputData.highwaympg }} {% endraw %}</label>
+                    <input type="range" class="form-range" min="0" max="50" step="1" id="highwaympg" v-model="inputData.highwaympg">
+
+                </div>
+            </div>
+
+            <div class="col-lg-5 col-12 mt-5 mt-lg-0">
+                <h3 class="mb-4 text-center">Prediction</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -12,6 +12,10 @@ def home():
 def lr():
     return render_template('linear-regression.html', title="Linear Regression")
 
+@app.route('/car-price-prediction')
+def car_price_prediction():
+    return render_template('carpriceprediction.html', title="Car Price Prediction")
+
 @app.route('/rl')
 def serve_webgl():
     return render_template("rl-game.html")
