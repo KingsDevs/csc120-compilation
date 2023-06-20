@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<div class="section-padding">
+<div class="section-padding" id="main-content">
     <div class="container">
         <div class="row justify-content-center">
 
@@ -31,14 +31,73 @@
                     <label for="highwaympg" class="form-label">Highway MPG: {% raw %} {{ inputData.highwaympg }} {% endraw %}</label>
                     <input type="range" class="form-range" min="0" max="50" step="1" id="highwaympg" v-model="inputData.highwaympg">
 
+                    <div class="d-grid">
+                        <button class="btn btn-success">Predict</button>
+                    </div>
                 </div>
             </div>
 
             <div class="col-lg-5 col-12 mt-5 mt-lg-0">
-                <h3 class="mb-4 text-center">Prediction</h3>
+                <h3 class="mb-4 text-center" v-on:click="get_prediction">Prediction</h3>
+                <h1 class="text-center">{% raw %} {{ prediction }} {% endraw %}</h1>
             </div>
         </div>
     </div>
 </div>
+
+{% endblock %}
+
+{% block customjs %}
+<script src="{{ url_for('static', filename='js/axios.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vue.global.js') }}"></script>
+
+<script>
+    const { createApp } = Vue
+    createApp({
+        data() {
+            return {
+                prediction: 0,
+                inputData : {
+                    engineSize: 0,
+                    boreratio: 0.0,
+                    compressionratio: 0.0,
+                    horsepower: 0,
+                    peakrpm: 0,
+                    citympg: 0,
+                    highwaympg: 0
+
+                }
+            }
+        },
+        
+        created() {
+            this.prediction = 0
+        },
+
+        methods: {
+            async get_prediction() {
+                const url = window.location.origin + "/predict"
+                
+                this.inputData.engineSize = +this.inputData.engineSize
+                this.inputData.boreratio = +this.inputData.boreratio
+                this.inputData.compressionratio = +this.inputData.compressionratio
+                this.inputData.horsepower = +this.inputData.horsepower
+                this.inputData.peakrpm = +this.inputData.peakrpm
+                this.inputData.citympg = +this.inputData.citympg
+                this.inputData.highwaympg = +this.inputData.highwaympg
+                console.log(this.inputData)
+                
+                axios.post(url, this.inputData, {
+                    headers : {
+                        'Content-Type' : 'Application/json'
+                    }
+                }).then(response => {
+                    this.prediction = response.data.prediction
+                })
+
+            }
+        }
+    }).mount('#app')
+</script>
 
 {% endblock %}

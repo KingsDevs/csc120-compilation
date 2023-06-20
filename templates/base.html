@@ -147,6 +147,10 @@
     <script src="{{ url_for('static', filename='js/owl.carousel.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
 
+    <div id="customjs">
+        {% block customjs %}{% endblock %}
+    </div>
+
 </body>
 
 </html>
