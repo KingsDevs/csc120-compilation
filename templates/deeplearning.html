@@ -14,7 +14,7 @@
                     <div class="col-lg-3 col-12">
                         <div class="custom-block-icon-wrap">
                             <div class="custom-block-image-wrap custom-block-image-detail-page">
-                                <img src="{{ url_for('static', filename='images/carprice-prediction.jpg') }}" alt="" class="custom-block-image img-fluid">
+                                <img src="{{ url_for('static', filename='images/tomatoleafdiseaseprediction.jpg') }}" alt="" class="custom-block-image img-fluid">
                             </div>
                         </div>
                     </div>
@@ -23,7 +23,7 @@
                         <div class="custom-block-info">
                             <div class="custom-block-top d-flex mb-1">
                                 <small class="me-4">
-                                    <a href="/car-price-prediction">
+                                    <a href="/tomato-leaf-disease-prediction">
                                         <i class="bi-play">
                                             Go to App
                                         </i>
@@ -31,13 +31,23 @@
                                 </small>
                             </div>
                             
-                            <h2 class="mb-2">Car Price Prediction</h2>
+                            <h2 class="mb-2">Tomato Leaf Disease Prediction</h2>
 
-                            <p>Car price prediction estimates the future value of a vehicle. It helps buyers and sellers make informed decisions using historical data and statistical models. </p>
-                            <p>The following variables as input or predictor variables: <b>engine size, bore ratio, compression ratio, horsepower, peak rpm, city mpg, and highway mpg.</b> </p>
+                            <p>Tomato leaf disease prediction estimates the risk of leaf diseases in tomato plants.  It helps farmers and gardeners take preventive measures for a healthier crop. </p>
+                            <p>Given an input image of a tomato leaf, the goal is to determine if the leaf is affected by any of the following diseases:</p>
+                            <ul>
+                                <li><b>Bacterial spot</b></li>
+                                <li><b>Early blight</b></li>
+                                <li><b>Leaf mold</b></li>
+                                <li><b>Septoria leaf spot</b></li>
+                                <li><b>Two-spotted spider mite</b></li>
+                                <li><b>Target spot</b></li>
+                                <li><b>Yellow leaf curl virus</b></li>
+                                <li><b>Mosaic virus</b></li>
 
-                            <h6>HOW TO USE</h6>
-                            <p><b>To use this car price prediction application, simply input the relevant information and click "predict" to obtain an estimation of the vehicle's value.</b></p>
+                            </ul>
+                            <h6 class="mt-3">HOW TO USE</h6>
+                            <p><b>To use the tomato leaf disease application, simply upload an image of the affected tomato leaf and click "predict." The application will analyze the image and provide a prediction of the specific disease affecting the tomato plant.</b></p>
                         </div>
                     </div>
                 </div>
@@ -75,5 +85,4 @@
         </div>
     </div>
 </section>
-
 {% endblock %}

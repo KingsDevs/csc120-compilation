@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+
 <section class="latest-podcast-section section-padding pb-0">
     <div class="container">
         <div class="row justufy-content-center">
@@ -14,7 +15,7 @@
                     <div class="col-lg-3 col-12">
                         <div class="custom-block-icon-wrap">
                             <div class="custom-block-image-wrap custom-block-image-detail-page">
-                                <img src="{{ url_for('static', filename='images/carprice-prediction.jpg') }}" alt="" class="custom-block-image img-fluid">
+                                <img src="{{ url_for('static', filename='images/strokeprediction.jpg') }}" alt="" class="custom-block-image img-fluid">
                             </div>
                         </div>
                     </div>
@@ -23,7 +24,7 @@
                         <div class="custom-block-info">
                             <div class="custom-block-top d-flex mb-1">
                                 <small class="me-4">
-                                    <a href="/car-price-prediction">
+                                    <a href="/stroke-prediction">
                                         <i class="bi-play">
                                             Go to App
                                         </i>
@@ -31,13 +32,13 @@
                                 </small>
                             </div>
                             
-                            <h2 class="mb-2">Car Price Prediction</h2>
+                            <h2 class="mb-2">Stroke Prediction</h2>
 
-                            <p>Car price prediction estimates the future value of a vehicle. It helps buyers and sellers make informed decisions using historical data and statistical models. </p>
-                            <p>The following variables as input or predictor variables: <b>engine size, bore ratio, compression ratio, horsepower, peak rpm, city mpg, and highway mpg.</b> </p>
-
+                            <p>Stroke prediction assesses an individual's risk of having a stroke. It helps healthcare professionals identify high-risk individuals and implement preventive measures.</p>
+                            <p>The following variables as input or predictor variables: <b>age, heart disease, work type, average glucose level and body mass index (bmi)</b>. These variables were chosen based to predict the probability of having stroke
+                            </p>
                             <h6>HOW TO USE</h6>
-                            <p><b>To use this car price prediction application, simply input the relevant information and click "predict" to obtain an estimation of the vehicle's value.</b></p>
+                            <p><b>To use this stroke prediction application, simply input the relevant information and click "predict" to obtain an estimation of the probability of having stroke.</b></p>
                         </div>
                     </div>
                 </div>
@@ -75,5 +76,6 @@
         </div>
     </div>
 </section>
+
 
 {% endblock %}
