@@ -7,7 +7,8 @@ import pickle
 
 app = Flask(__name__)
 
-car_price_prediction_model = None
+model_file = open("mlmodels/car_price_prediction.pickle", "rb")
+car_price_prediction_model = pickle.load(model_file)
 
 
 @app.route('/')
@@ -39,7 +40,7 @@ def predict_car_price():
 
 
 if __name__ == '__main__':
-    model_file = open("mlmodels/car_price_prediction.pickle", "rb")
-    car_price_prediction_model = pickle.load(model_file)
+    # model_file = open("mlmodels/car_price_prediction.pickle", "rb")
+    # car_price_prediction_model = pickle.load(model_file)
     app.run(debug=True)
 
