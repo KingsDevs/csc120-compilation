@@ -146,11 +146,11 @@
             <div class="col-lg-5 col-12 mt-5 mt-lg-0">
                 <h1 class="mb-4 text-center">Probability:</h1>
                 <div class="d-flex align-items-center justify-content-center" style="height: 100px;">
-                    <div class="p-2 m-2 bg-info text-white shadow rounded-2"><h1>{% raw %} {{ output.probability }} {% endraw %} %</h1></div>
+                    <div class="p-2 m-2 bg-info text-white shadow rounded-2"><h4>{% raw %} {{ output.probability }} {% endraw %} %</h4></div>
                 </div>
                 <h1 class="text-center">Diagnosis:</h1>
                     <div class="d-flex align-items-center justify-content-center" style="height: 100px;">
-                        <div class="p-2 m-2 bg-info text-white shadow rounded-2"><h1>{% raw %} {{ output.diagnosis }} {% endraw %}</h1></div>
+                        <div class="p-2 m-2 bg-info text-white shadow rounded-2"><h4>{% raw %} {{ output.diagnosis }} {% endraw %}</h4></div>
                     </div>
             </div>
 
@@ -214,8 +214,8 @@
 
         methods: {
             async get_prediction() {
-                const url = window.location.origin + "/predict"
-
+                const url = window.location.origin + "/predict/breast-cancer-prediction"
+                this.loading = true
                 this.input.radius_mean = + this.input.radius_mean
                 this.input.texture_mean = + this.input.texture_mean
                 this.input.perimeter_mean = + this.input.perimeter_mean
@@ -255,6 +255,7 @@
                     this.output = response.data
 
                     this.output.probability *= 100
+                    this.loading = false
                 })
 
             }
