@@ -15,6 +15,128 @@
                 <div class="contact-info">
                     <h3 class="mb-4">Breast Cancer Prediction</h3>
                 
+                    <div class="mb-2" style="height: 500px; overflow-y: auto;">
+
+                        <label for="radius-mean" class="form-label">Radius of Lobes: {% raw %} {{ input.radius_mean }} {% endraw %}</label>
+                        <input type="range" class="form-range" min="0" max="30" step="0.01" id="radius_mean" v-model="input.radius_mean">
+                
+                    
+                        <label for="texture-mean" class="form-label">Mean of Surface Texture: {% raw %} {{ input.texture_mean }} {% endraw %}</label>
+                        <input type="range" class="form-range" min="0" max="40" step="0.01" id="texture-mean" v-model="input.texture_mean">
+                    
+                    
+                        <label for="perimeter-mean" class="form-label">Outer Perimeter of Lobes: {% raw %} {{ input.perimeter_mean }} {% endraw %}</label>
+                        <input type="range" class="form-range" min="0" max="200" step="0.1" id="perimeter-mean" v-model="input.perimeter_mean">
+                    
+                    
+                        <label for="area-mean" class="form-label">Mean Area of Lobes: {% raw %} {{ input.area_mean }} {% endraw %}</label>
+                        <input type="range" class="form-range" min="0" max="2500" step="0.1" id="area_mean" v-model="input.area_mean">
+                    
+                    
+                        <label for="smoothness-mean" class="form-label">Mean of Smoothness Levels: {% raw %} {{ input.smoothness_mean }} {% endraw %}</label>
+                        <input type="range" class="form-range" min="0" max="2" step="0.0001" id="smoothness-mean" v-model="input.smoothness_mean">
+                    
+                    
+                        <label for="compactness-mean" class="form-label">Mean of Compactness: {% raw %} {{ input.compactness_mean }} {% endraw %}</label>
+                        <input type="range" class="form-range" min="0" max="2" step="0.0001" id="compactness-mean" v-model="input.compactness_mean">
+                    
+                    
+                        <label for="concavity-mean" class="form-label">Mean of Concavity: {% raw %} {{ input.concavity_mean }} {% endraw %}</label>
+                        <input type="range" class="form-range" min="0" max="2" step="0.0001" id="concavity-mean" v-model="input.concavity_mean">
+                    
+                    
+                        <label for="concave-points-mean" class="form-label">Mean of Concave Points: {% raw %} {{ input.concave_points_mean }} {% endraw %}</label>
+                        <input type="range" class="form-range" min="0" max="2" step="0.0001" id="concave-points-mean" v-model="input.concave_points_mean">
+                    
+                    
+                        <label for="symmetry-mean" class="form-label">Mean of Symmetry: {% raw %} {{ input.symmetry_mean }} {% endraw %}</label>
+                        <input type="range" class="form-range" min="0" max="2" step="0.0001" id="symmetry-mean" v-model="input.symmetry_mean">
+                
+                    
+                        <label for="fractal-dimension-mean" class="form-label">Mean of Fractal Dimension: {% raw %} {{ input.fractal_dimension_mean }} {% endraw %}</label>
+                        <input type="range" class="form-range" min="0" max="2" step="0.00001" id="fractal-dimension-mean" v-model="input.fractal_dimension_mean">
+                
+                    
+                        <label for="radius-se" class="form-label">SE of Radius: {% raw %} {{ input.radius_se }} {% endraw %}</label>
+                        <input type="range" class="form-range" min="0" max="3.00" step="0.0001" id="radius-se" v-model="input.radius_se">
+                    
+                    
+                        <label for="texture-se" class="form-label">SE of Texture: {% raw %} {{ input.texture_se }} {% endraw %}</label>
+                        <input type="range" class="form-range" min="0" max="5.00" step="0.0001" id="texture-se" v-model="input.texture_se">
+                    
+                    
+                        <label for="perimeter-se" class="form-label">SE of Perimeter: {% raw %} {{ input.perimeter_se }} {% endraw %}</label>
+                        <input type="range" class="form-range" min="0" max="25" step="0.001" id="perimeter-se" v-model="input.perimeter_se">
+                    
+                    
+                        <label for="area-se" class="form-label">SE of Area: {% raw %} {{ input.area_se }} {% endraw %}</label>
+                        <input type="range" class="form-range" min="0" max="550" step="0.01" id="area-se" v-model="input.area_se">
+                    
+                    
+                        <label for="smoothness-se" class="form-label">SE of Smoothness: {% raw %} {{ input.smoothness_se }} {% endraw %}</label>
+                        <input type="range" class="form-range" min="0" max="2" step="0.000001" id="smoothness-se" v-model="input.smoothness_se">
+                    
+                    
+                        <label for="compactness-se" class="form-label">SE of Compactness: {% raw %} {{ input.compactness_se }} {% endraw %}</label>
+                        <input type="range" class="form-range" min="0" max="2" step="0.00001" id="compactness-se" v-model="input.compactness_se">
+                    
+                    
+                        <label for="concavity-se" class="form-label">SE of Concavity: {% raw %} {{ input.concavity_se }} {% endraw %}</label>
+                        <input type="range" class="form-range" min="0" max="2" step="0.00001" id="concavity-se" v-model="input.concavity_se">
+            
+                    
+                        <label for="concave-points-se" class="form-label">SE of Concave Points: {% raw %} {{ input.concave_points_se }} {% endraw %}</label>
+                        <input type="range" class="form-range" min="0" max="2" step="0.00001" id="concave-points-se" v-model="input.concave_points_se">
+                    
+                    
+                        <label for="symmetry-se" class="form-label">SE of Symmetry: {% raw %} {{ input.symmetry_se }} {% endraw %}</label>
+                        <input type="range" class="form-range" min="0" max="2" step="0.00001" id="symmetry-se" v-model="input.symmetry_se">
+                    
+                    
+                        <label for="fractal-dimension-se" class="form-label">SE of Fractal Dimension: {% raw %} {{ input.fractal_dimension_se }} {% endraw %}</label>
+                        <input type="range" class="form-range" min="0" max="2" step="0.000001" id="fractal-dimension-se" v-model="input.fractal_dimension_se">
+                    
+                    
+                        <label for="radius-worst" class="form-label">Worst Radius: {% raw %} {{ input.radius_worst }} {% endraw %}</label>
+                        <input type="range" class="form-range" min="0" max="40" step="0.01" id="radius-worst" v-model="input.radius_worst">
+                    
+                    
+                        <label for="texture-worst" class="form-label">Worst Texture: {% raw %} {{ input.texture_worst }} {% endraw %}</label>
+                        <input type="range" class="form-range" min="0" max="50" step="0.01" id="texture-worst" v-model="input.texture_worst">
+            
+                    
+                        <label for="perimeter-worst" class="form-label">Worst Perimeter: {% raw %} {{ input.perimeter_worst }} {% endraw %}</label>
+                        <input type="range" class="form-range" min="0" max="300" step="0.01" id="perimeter-worst" v-model="input.perimeter_worst">
+                    
+                    
+                        <label for="area-worst" class="form-label">Worst Area {% raw %} {{ input.area_worst }} {% endraw %}</label>
+                        <input type="range" class="form-range" min="0" max="4300" step="0.1" id="area-worst" v-model="input.area_worst">
+                    
+                    
+                        <label for="smoothness-worst" class="form-label">Worst Smoothness: {% raw %} {{ input.smoothness_worst }} {% endraw %}</label>
+                        <input type="range" class="form-range" min="0" max="2" step="0.0001" id="smoothness-worst" v-model="input.smoothness_worst">
+                    
+                    
+                        <label for="compactness-worst" class="form-label">Worst Compactness: {% raw %} {{ input.compactness_worst }} {% endraw %}</label>
+                        <input type="range" class="form-range" min="0" max="2.0" step="0.0001" id="compactness-worst" v-model="input.compactness_worst">
+                    
+                    
+                        <label for="concavity-worst" class="form-label">Worst Concavity: {% raw %} {{ input.concavity_worst }} {% endraw %}</label>
+                        <input type="range" class="form-range" min="0" max="2.0" step="0.0001" id="concavity-worst" v-model="input.concavity_worst">
+                    
+                    
+                        <label for="concave-points-worst" class="form-label">Worst Concave Points: {% raw %} {{ input.concave_points_worst }} {% endraw %}</label>
+                        <input type="range" class="form-range" min="0" max="2" step="0.0001" id="concave-points-worst" v-model="input.concave_points_worst">
+                    
+                
+                        <label for="symmetry-worst" class="form-label">Worst Symmetry: {% raw %} {{ input.symmetry_worst }} {% endraw %}</label>
+                        <input type="range" class="form-range" min="0" max="2" step="0.0001" id="symmetry-worst" v-model="input.symmetry_worst">
+                    
+                    
+                        <label for="fractal-dimension-worst" class="form-label">Worst Fractal Dimension: {% raw %} {{ input.fractal_dimension_worst }} {% endraw %}</label>
+                        <input type="range" class="form-range" min="0" max="2" step="0.0001" id="fractal-dimension-worst" v-model="input.fractal_dimension_worst">
+                    </div>
+
                     <div class="d-grid">
                         <button class="btn btn-success" v-on:click="get_prediction">Predict</button>
                     </div>
