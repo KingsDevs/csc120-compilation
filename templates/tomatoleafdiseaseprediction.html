@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 
+{% block customcss %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tomato-leaf-disease-custom.css') }}">
+{% endblock %}
+
+
 {% block content %}
 <div v-if="loading">
     <div id="loading-overlay">
@@ -13,7 +18,7 @@
 
             <div class="col-lg-5 col-23 pe-lg-5">
                 <div class="contact-info">
-                    <h3 class="mb-4">{ title }</h3>
+                    <h3 class="mb-4 text-center">{{ title }}</h3>
     
                     <div class="d-flex flex-column align-items-center justify-content-center text-center mb-3">
                         <h4 class="text-center mb-5">Upload Leaf Image</h4>
