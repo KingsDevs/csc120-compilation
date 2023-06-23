@@ -1,6 +1,7 @@
 from flask import Flask, render_template, jsonify, request
 import numpy as np
 from tensorflow import keras
+from PIL import Image
 import pickle
 
 app = Flask(__name__)
@@ -8,6 +9,11 @@ app = Flask(__name__)
 car_price_prediction_model = pickle.load(open("mlmodels/car_price_prediction.pickle", "rb"))
 stroke_prediction_model = pickle.load(open('mlmodels/stroke_prediction.pickle', 'rb'))
 breast_cancer_prediction_model = keras.models.load_model('mlmodels/breast_cancer_prediction.h5')
+
+tomato_leaf_models = []
+tomato_leaf_models.append(keras.models.load_model('mlmodels/tomato_leaf_disease_detection.h5'))
+tomato_leaf_models.append(keras.models.load_model('mlmodels/tomato_leaf_disease_detection_inception.h5'))
+tomato_leaf_models.append(keras.models.load_model('mlmodels/pretrain_model.h5'))
 
 @app.route('/')
 def home():
@@ -93,6 +99,33 @@ def predict_breast_cancer():
     diagnosis = "Benign" if proba < 0.5 else "Malignant"
 
     return jsonify({'probability': proba, 'diagnosis': diagnosis})
+
+@app.route('/predict/tomato-leaf-disease-prediction', methods=['POST'])
+def predict_tomato_leaf_disease():
+    image_file = request.files['image']
+    image = Image.open(image_file)
+
+    model_index = int(request.form.get('model'))
+    if model_index < 0: model_index = 0
+
+    model = tomato_leaf_models[model_index]
+
+    image = image.resize((112, 112))
+    image = np.expand_dims(image, axis=0)
+    predictions = model.predict(image)
+
+    return jsonify({
+        'Bacterial Spot': float(predictions[0][0]),
+        'Early Blight': float(predictions[0][1]),
+        'Late Blight': float(predictions[0][2]),
+        'Leaf Mold': float(predictions[0][3]),
+        'Septoria Leaf Spot': float(predictions[0][4]),
+        'Two-spotted Spider Mite': float(predictions[0][5]),
+        'Target Spot': float(predictions[0][6]),
+        'Yellow Leaf Curl Virus': float(predictions[0][7]),
+        'Mosaic Virus': float(predictions[0][8]),
+        'Healthy': float(predictions[0][9])
+    })
 
 if __name__ == '__main__':
     app.run(debug=True)
