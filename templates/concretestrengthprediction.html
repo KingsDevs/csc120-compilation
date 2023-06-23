@@ -63,7 +63,7 @@
 
             <div class="col-lg-5 col-12 mt-5 mt-lg-0">
                 <h3 class="mb-4 text-center">csMpa:</h3>
-                <h1 class="text-center mx-auto" style="width: fit-content;">{% raw %} {{ csMpa }} {% endraw %} %</h1>
+                <h1 class="text-center mx-auto" style="width: fit-content;">{% raw %} {{ csMpa }} {% endraw %} </h1>
             </div>
         </div>
 
@@ -100,11 +100,12 @@ createApp({
 
     methods: {
         async get_predicton() {
-            const url = window.location.origin + "/predict/stroke-prediction"
+            const url = window.location.origin + "/predict/concrete-strength-prediction-lr"
             this.loading = true
             
             this.input.cement = + this.input.cement
             this.input.slag = + this.input.slag
+            this.input.flyash = + this.input.flyash
             this.input.water = + this.input.water
             this.input.superplasticizer = + this.input.superplasticizer
             this.input.coarseaggregate = + this.input.coarseaggregate
@@ -116,9 +117,8 @@ createApp({
                     'Content-Type' : 'Application/json'
                 }
             }).then(response => {
-                this.probability = response.data.prediction
-                this.probability *= 100
-                this.probability = this.probability.toFixed(3)
+                this.csMpa = response.data.csMpa
+                this.csMpa = this.csMpa.toFixed(3)
                 this.loading = false
             })
 

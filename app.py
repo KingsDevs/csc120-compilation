@@ -7,6 +7,7 @@ import pickle
 app = Flask(__name__)
 
 car_price_prediction_model = pickle.load(open("mlmodels/car_price_prediction.pickle", "rb"))
+concrete_strength_prediction_lrmodel = pickle.load(open("mlmodels/concrete_strength_prediction_lr.pickle", "rb"))
 stroke_prediction_model = pickle.load(open('mlmodels/stroke_prediction.pickle', 'rb'))
 breast_cancer_prediction_model = keras.models.load_model('mlmodels/breast_cancer_prediction.h5')
 
@@ -71,6 +72,14 @@ def predict_car_price():
                       data['peakrpm'], data['citympg'], data['highwaympg']]).reshape(-1, 7)
     prediction = car_price_prediction_model.predict(data_x)
     return jsonify({'prediction': prediction[0]})
+
+@app.route('/predict/concrete-strength-prediction-lr', methods=['POST'])
+def predict_concrete_strength_lr():
+    data = request.get_json()
+    data_x = np.array([data['cement'], data['slag'], data['flyash'], data['water'], data['superplasticizer'],
+                      data['coarseaggregate'], data['fineaggregate'], data['age']]).reshape(-1, 8)
+    prediction = concrete_strength_prediction_lrmodel.predict(data_x)
+    return jsonify({'csMpa': prediction[0]})
 
 @app.route('/predict/stroke-prediction', methods=['POST'])
 def predict_stroke():
