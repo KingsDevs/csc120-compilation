@@ -127,5 +127,7 @@ def predict_tomato_leaf_disease():
         'Healthy': float(predictions[0][9])
     })
 
+
+
 if __name__ == '__main__':
     app.run(debug=True)
