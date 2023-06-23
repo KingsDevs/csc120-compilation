@@ -43,6 +43,10 @@ def Deep_Reinforcement_learning():
 def car_price_prediction():
     return render_template('carpriceprediction.html', title="Car Price Prediction")
 
+@app.route('/concrete-strength-prediction')
+def concrete_strength_prediction():
+    return render_template("concretestrengthprediction.html", title="Concrete Strength Prediction")
+
 @app.route('/stroke-prediction')
 def stroke_prediction():
     return render_template("strokeprediction.html", title="Stroke Probability Prediction")
