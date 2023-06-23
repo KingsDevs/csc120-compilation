@@ -44,13 +44,17 @@ def Deep_Reinforcement_learning():
 def car_price_prediction():
     return render_template('carpriceprediction.html', title="Car Price Prediction")
 
-@app.route('/concrete-strength-prediction')
-def concrete_strength_prediction():
-    return render_template("concretestrengthprediction.html", title="Concrete Strength Prediction")
+@app.route('/concrete-strength-prediction-lr')
+def concrete_strength_prediction_lr():
+    return render_template("concretestrengthprediction_lr.html", title="Concrete Strength Prediction Linear Regression Ver")
 
 @app.route('/stroke-prediction')
 def stroke_prediction():
     return render_template("strokeprediction.html", title="Stroke Probability Prediction")
+
+@app.route('/diabetes-prediction-lr')
+def diabetes_prediction_lr():
+    return render_template("diabetesprediction-lr.html", title="Diabetes Prediction Logistical Regression Ver")
 
 @app.route('/breast-cancer-prediction')
 def breast_cancer_prediction():
