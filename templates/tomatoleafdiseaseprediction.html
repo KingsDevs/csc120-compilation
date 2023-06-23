@@ -1,5 +1,205 @@
 {% extends "base.html" %}
 
+{% block customcss %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tomato-leaf-disease-custom.css') }}">
+{% endblock %}
+
+
 {% block content %}
+<div v-if="loading">
+    <div id="loading-overlay">
+        <div id="loading-spinner"></div>
+    </div>
+</div>
+
+<div class="section-padding" id="main-content">
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <div class="col-lg-5 col-23 pe-lg-5">
+                <div class="contact-info">
+                    <h3 class="mb-4 text-center">{{ title }}</h3>
+    
+                    <div class="d-flex flex-column align-items-center justify-content-center text-center mb-3">
+                        <h4 class="text-center mb-5">Upload Leaf Image</h4>
+                        <label for="upload-input" class="image-container">
+                            <img :src="imageUrl" alt="Upload Icon" class="image rounded w-100">
+                            <input type="file" id="upload-input" class="d-none" v-on:change="handleFileUpload($event)">
+                        </label>
+                    </div>
+    
+                    <select class="form-select mb-2" aria-label="Default select example" v-model="model">
+                        <option selected value="-1">Select Model</option>
+                        <option value="0">Vanilla CNN</option>
+                        <option value="1">Inception</option>
+                        <option value="2">Pretrained Model</option>
+                    </select>
+                    
+                    <div class="d-grid">
+                        <button class="btn btn-success" v-on:click="predict">Predict</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 col-12 mt-5 mt-lg-0">
+                <h4 class="text-center mb-5">Prediction</h4>
+                <div class="d-flex flex-column-align-items-center justify-content-center">
+                    <label for="upload-input" class="image-container">
+                        <table class="table table-hover">
+                            <thead class="thead-dark">
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Disease</th>
+                                <th scope="col">Probability</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                <!-- <tr v-for="prediction in predictions" :class="{ 'bg-success': isGreatestProbability(prediction) }">
+                                    <th scope="row">{% raw %} {{ prediction }} {% endraw %}</th>
+                                    <td>{% raw %} {{ predictions[prediction] }} {% endraw %}</td>
+                                </tr> -->
+                              <tr :class="{'predicted': isGreatestProbability('Bacterial Spot')}">
+                                <th scope="row">1</td>
+                                <td>Bacterial Spot</td>
+                                <td>{% raw %} {{ predictions['Bacterial Spot'] }} {% endraw %}</td>
+                              </tr>
+                              <tr :class="{'predicted': isGreatestProbability('Early Blight')}">
+                                <th scope="row">2</td>
+                                <td>Early Blight</td>
+                                <td>{% raw %} {{ predictions['Early Blight'] }} {% endraw %}</td>
+                              </tr>
+                              <tr :class="{'predicted': isGreatestProbability('Late Blight')}">
+                                <th scope="row">3</td>
+                                <td>Late Blight</td>
+                                <td>{% raw %} {{ predictions['Late Blight'] }} {% endraw %}</td>
+                              </tr>
+                              <tr :class="{'predicted': isGreatestProbability('Leaf Mold')}">
+                                <th scope="row">4</td>
+                                <td>Leaf Mold</td>
+                                <td>{% raw %} {{ predictions['Leaf Mold'] }} {% endraw %}</td>
+                              </tr>
+                              <tr :class="{'predicted': isGreatestProbability('Septoria Leaf Spot')}">
+                                <th scope="row">5</td>
+                                <td>Septoria Leaf Spot</td>
+                                <td>{% raw %} {{ predictions['Septoria Leaf Spot'] }} {% endraw %}</td>
+                              </tr>
+                              <tr :class="{'predicted': isGreatestProbability('Two-spotted Spider Mite')}">
+                                <th scope="row">6</td>
+                                <td>Two-spotted Spider Mite</td>
+                                <td>{% raw %} {{ predictions['Two-spotted Spider Mite'] }} {% endraw %}</td>
+                              </tr>
+                              <tr :class="{'predicted': isGreatestProbability('Target Spot')}">
+                                <th scope="row">7</td>
+                                <td>Target Spot</td>
+                                <td>{% raw %} {{ predictions['Target Spot'] }} {% endraw %}</td>
+                              </tr>
+                              <tr :class="{'predicted': isGreatestProbability('Yellow Leaf Curl Virus')}">
+                                <th scope="row">8</td>
+                                <td>Yellow Leaf Curl Virus</td>
+                                <td>{% raw %} {{ predictions['Yellow Leaf Curl Virus'] }} {% endraw %}</td>
+                              </tr>
+                              <tr :class="{'predicted': isGreatestProbability('Mosaic Virus')}">
+                                <th scope="row">9</td>
+                                <td>Mosaic Virus</td>
+                                <td>{% raw %} {{ predictions['Mosaic Virus'] }} {% endraw %}</td>
+                              </tr>
+                              <tr :class="{'predicted': isGreatestProbability('Healthy')}">
+                                <th scope="row">10</td>
+                                <td>Healthy</td>
+                                <td>{% raw %} {{ predictions['Healthy'] }} {% endraw %}</td>
+                              </tr>
+                            </tbody>
+                        </table>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block customjs %}
+
+<script src="{{ url_for('static', filename='js/axios.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vue.global.js') }}"></script>
+
+<script>
+    const { createApp } = Vue
+
+    createApp({
+        data() {
+            return {
+                imageUrl: '/static/images/uploadicon.jpg',
+                imageFile: '',
+                model: -1,
+                predictions: {
+                    'Bacterial Spot': 0,
+                    'Early Blight': 0,
+                    'Late Blight': 0,
+                    'Leaf Mold': 0,
+                    'Septoria Leaf Spot': 0,
+                    'Two-spotted Spider Mite': 0,
+                    'Target Spot': 0,
+                    'Yellow Leaf Curl Virus': 0,
+                    'Mosaic Virus': 0,
+                    'Healthy': 0
+                },
+                first: true,
+                loading: false
+            }
+        },
+
+        methods: {
+            async handleFileUpload(event) {
+                console.log(this.imageUrl)
+                this.imageFile = event.target.files[0];
+                const reader = new FileReader();
+
+                reader.onload = () => {
+                    this.imageUrl = reader.result;
+                };
+
+                reader.readAsDataURL(this.imageFile);
+
+            },
+
+            async predict(event) {
+                const url = window.location.origin + "/predict/tomato-leaf-disease-prediction   "
+
+                this.loading = true
+
+                const formData = new FormData();
+                formData.append('image', this.imageFile);
+
+                this.model = + this.model
+                formData.append('model', this.model)
+                console.log(this.model)
+                axios.post(url, formData, {
+                    headers: {
+                        'Content-Type' : 'multipart/form-data',
+                        accept: 'application/json'
+                    }
+                })
+                .then(response => {
+                    console.log(response.data);
+                    this.predictions = response.data
+                    this.first = false
+                    this.loading = false
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+            },
+
+            isGreatestProbability(prediction) {
+                const probabilities = Object.values(this.predictions);
+                const maxProbability = Math.max(...probabilities);
+                return this.predictions[prediction] === maxProbability && !this.first;
+            }
+        }
+
+    }).mount('#app')
+</script>
 
 {% endblock %}
