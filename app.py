@@ -9,6 +9,7 @@ app = Flask(__name__)
 car_price_prediction_model = pickle.load(open("mlmodels/car_price_prediction.pickle", "rb"))
 concrete_strength_prediction_lrmodel = pickle.load(open("mlmodels/concrete_strength_prediction_lr.pickle", "rb"))
 stroke_prediction_model = pickle.load(open('mlmodels/stroke_prediction.pickle', 'rb'))
+diabetes_prediction_model_lr = pickle.load(open('mlmodels/diabetes_prediction_logr.pickle', 'rb'))
 breast_cancer_prediction_model = keras.models.load_model('mlmodels/breast_cancer_prediction.h5')
 
 tomato_leaf_models = []
@@ -91,6 +92,19 @@ def predict_stroke():
     data_x = np.array([data['age'], data['heart_disease'], data['work_type'], data['avg_glucose_level'],
                       data['bmi']]).reshape(-1, 5)
     prediction = stroke_prediction_model.predict_proba(data_x)[:, 1]
+    return jsonify({'prediction': prediction[0]})
+
+@app.route('/predict/diabetes-prediction-lr', methods=['POST'])
+def predict_diabetes_lr():
+    data = request.get_json()
+    data_x = np.array([data['gender'], data['age'], data['hypertension'], data['heart_disease'], data['smoke_history'], data['bmi'],
+                      data['HbA1c_level'], data['blood_glucose_level']]).reshape(-1, 8)
+    
+    # from sklearn import preprocessing
+    # stand = preprocessing.StandardScaler()
+    # data_x = stand.fit_transform(data_x)
+
+    prediction = diabetes_prediction_model_lr.predict_proba(data_x)[:, 1]
     return jsonify({'prediction': prediction[0]})
 
 @app.route('/predict/breast-cancer-prediction', methods=['POST'])
