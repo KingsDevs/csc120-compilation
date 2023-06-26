@@ -65,10 +65,10 @@ def concrete_strength_prediction_nn():
         prediction = concrete_strength_prediction_lrmodel.predict(data_x)[0]
         prediction = format(prediction, '.3f')
 
-        return render_template("concretestrengthprediction_nn_result.html", title="Concrete Strength Prediction Linear Regression Ver", prediction=prediction)
+        return render_template("concretestrengthprediction_nn_result.html", title="Concrete Strength Prediction Deep Learning Ver", prediction=prediction)
 
 
-    return render_template("concretestrengthprediction_nn.html", title="Concrete Strength Prediction Linear Regression Ver")
+    return render_template("concretestrengthprediction_nn.html", title="Concrete Strength Prediction Deep Learning Ver")
 
 @app.route('/concrete-strength-prediction-lr')
 def concrete_strength_prediction_lr():
@@ -81,6 +81,19 @@ def stroke_prediction():
 @app.route('/diabetes-prediction-lr')
 def diabetes_prediction_lr():
     return render_template("diabetesprediction-lr.html", title="Diabetes Prediction Logistical Regression Ver")
+
+@app.route('/diabetes-prediction-nn', methods=['POST', 'GET'])
+def diabetes_prediction_nn():
+    if request.method == "POST":
+        data = request.form
+        data_x = np.array([int(data.get('gender')), int(data.get('age')), int(data.get('hypertension')), int(data.get('heart-disease')), int(data.get('smoke-history')), float(data.get('bmi')),
+                        float(data.get('HbA1c-level')), float(data.get('blood-glucose-level'))]).reshape(-1, 8)
+        
+        prediction = diabetes_prediction_model_lr.predict_proba(data_x)[:, 1]
+
+        return render_template("diabetesprediction-nn-result.html", title="Diabetes Prediction Logistical Regression Ver", prediction=prediction[0])
+
+    return render_template("diabetesprediction-nn.html", title="Diabetes Prediction Logistical Regression Ver")
 
 @app.route('/breast-cancer-prediction')
 def breast_cancer_prediction():

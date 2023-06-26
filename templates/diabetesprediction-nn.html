@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div v-if="loading">
+    <div id="loading-overlay">
+        <div id="loading-spinner"></div>
+    </div>
+</div>
+
+<div class="section-padding" id="main-content">
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <div class="col-lg-5 col-23 pe-lg-5">
+                <div class="contact-info">
+                    <h3 class="mb-4 text-center">{{ title }}</h3>
+
+                    <form action="/diabetes-prediction-nn" method="post">
+                        <div class="mb-3">
+                            <label for="gender" class="form-label">Gender</label>
+                            <select class="form-select" aria-label="Default select example" name="gender" id="gender" v-model="input.gender">
+                                <option selected value="0">Male</option>
+                                <option value="1">Female</option>
+                                <option value="2">Other</option>
+                            </select>
+                        </div>
+                    
+                        <div class="mb-2">
+                            <label for="age" class="form-label">Age: {% raw %} {{ input.age }} {% endraw %}</label>
+                            <input type="range" class="form-range" min="0" max="150" step="1" id="age" name="age" v-model="input.age">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="hypertension" class="form-label">Do you have hypertension?</label>
+                            <select class="form-select" aria-label="Default select example" id="hypertension" name="hypertension" v-model="input.hypertension">
+                                <option selected value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="heart-disease" class="form-label">Do you have heart disease?</label>
+                            <select class="form-select" aria-label="Default select example" id="heart-disease" name="heart-disease" v-model="input.heart_disease">
+                                <option selected value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="smoke-history" class="form-label">Do you smoke?</label>
+                            <select class="form-select" aria-label="Default select example" id="smoke-history" name="smoke-history" v-model="input.smoke_history">
+                                <option selected value="0">Currently Smoking</option>
+                                <option value="1">Prior Smoker</option>
+                                <option value="2">Former Smoker</option>
+                                <option value="3">Never Smoked</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-2">
+                            <label for="bmi" class="form-label">BMI: {% raw %} {{ input.bmi }} {% endraw %}</label>
+                            <input type="range" class="form-range" min="0" max="100" step="0.01" id="bmi" name="bmi" v-model="input.bmi">
+                        </div>
+
+                        <div class="mb-2">
+                            <label for="HbA1c-level" class="form-label">HbA1c Level: {% raw %} {{ input.HbA1c_level }} {% endraw %}</label>
+                            <input type="range" class="form-range" min="0" max="9" step="0.01" id="HbA1c-level" name="HbA1c-level" v-model="input.HbA1c_level">
+                        </div>
+
+                        <div class="mb-2">
+                            <label for="blood-glucose-level" class="form-label">Blood Glucose Level: {% raw %} {{ input.blood_glucose_level }} {% endraw %}</label>
+                            <input type="range" class="form-range" min="0" max="300" step="0.1" id="blood-glucose-level" name="blood-glucose-level" v-model="input.blood_glucose_level">
+                        </div>
+
+                        
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success">Predict</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- <div class="col-lg-5 col-12 mt-5 mt-lg-0">
+                <h3 class="mb-4 text-center">Probability:</h3>
+                <h1 class="text-center mx-auto" style="width: fit-content;">{% raw %} {{ probability }} {% endraw %} %</h1>
+            </div> -->
+        </div>
+
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block customjs %}
+<script src="{{ url_for('static', filename='js/axios.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vue.global.js') }}"></script>
+
+<script>
+    const { createApp } = Vue
+
+createApp({
+    data () {
+        return {
+            probability: 0.0,
+            input: {
+                gender: 0,
+                age: 0,
+                hypertension: 0,
+                heart_disease: 1,
+                smoke_history: 0,
+                bmi: 0,
+                HbA1c_level: 0,
+                blood_glucose_level: 0
+            },
+            loading: false
+        }
+    },
+
+    methods: {
+        // async get_predicton() {
+        //     const url = window.location.origin + "/predict/diabetes-prediction-lr"
+        //     this.loading = true
+
+        //     this.input.gender = + this.input.gender
+        //     this.input.age = + this.input.age
+        //     this.input.hypertension = + this.input.hypertension
+        //     this.input.heart_disease = + this.input.heart_disease
+        //     this.input.smoke_history = + this.input.smoke_history
+        //     this.input.bmi = + this.input.bmi
+        //     this.input.HbA1c_level = + this.input.HbA1c_level
+        //     this.input.blood_glucose_level = + this.input.blood_glucose_level
+
+        //     axios.post(url, this.input, {
+        //         headers : {
+        //             'Content-Type' : 'Application/json'
+        //         }
+        //     }).then(response => {
+        //         this.probability = response.data.prediction
+        //         this.probability *= 100
+        //         this.probability = this.probability.toFixed(3)
+        //         this.loading = false
+        //     })
+
+        // }
+    }
+}).mount("#app")
+</script>
+
+{% endblock %}
