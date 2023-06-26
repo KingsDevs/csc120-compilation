@@ -7,9 +7,13 @@ import pickle
 app = Flask(__name__)
 
 car_price_prediction_model = pickle.load(open("mlmodels/car_price_prediction.pickle", "rb"))
+concrete_strength_prediction_lrmodel = pickle.load(open("mlmodels/concrete_strength_prediction_lr.pickle", "rb"))
 stroke_prediction_model = pickle.load(open('mlmodels/stroke_prediction.pickle', 'rb'))
+diabetes_prediction_model_lr = pickle.load(open('mlmodels/diabetes_prediction_logr.pickle', 'rb'))
 breast_cancer_prediction_model = keras.models.load_model('mlmodels/breast_cancer_prediction.h5')
 
+concrete_strength_prediction_nnmodel = keras.models.load_model("mlmodels/concrete_strength_prediction_nn.h5")
+diabetes_prediction_model_nn = keras.models.load_model("mlmodels/diabetes_prediction_nn.h5")
 tomato_leaf_models = []
 tomato_leaf_models.append(keras.models.load_model('mlmodels/tomato_leaf_disease_detection.h5'))
 tomato_leaf_models.append(keras.models.load_model('mlmodels/tomato_leaf_disease_detection_inception.h5'))
@@ -43,9 +47,55 @@ def Deep_Reinforcement_learning():
 def car_price_prediction():
     return render_template('carpriceprediction.html', title="Car Price Prediction")
 
+@app.route('/concrete-strength-prediction-nn', methods=['POST', 'GET'])
+def concrete_strength_prediction_nn():
+    if request.method == 'POST':
+        data = request.form
+
+        cement = float(data.get('cement'))
+        slag = float(data.get('slag'))
+        flyash = float(data.get('flyash'))
+        water = float(data.get('water'))
+        superplasticizer = float(data.get('superplasticizer'))
+        coarseaggregate = float(data.get('coarseaggregate'))
+        fineaggregate = float(data.get('fineaggregate'))
+        age = float(data.get('age'))
+
+        data_x = np.array([cement, slag, flyash, water, superplasticizer, coarseaggregate, fineaggregate, age]).reshape(-1, 8)
+        
+
+        prediction = concrete_strength_prediction_nnmodel.predict(data_x)[0]
+        prediction = format(prediction[0], '.3f')
+
+        return render_template("concretestrengthprediction_nn_result.html", title="Concrete Strength Prediction Deep Learning Ver", prediction=prediction)
+
+
+    return render_template("concretestrengthprediction_nn.html", title="Concrete Strength Prediction Deep Learning Ver")
+
+@app.route('/concrete-strength-prediction-lr')
+def concrete_strength_prediction_lr():
+    return render_template("concretestrengthprediction_lr.html", title="Concrete Strength Prediction Linear Regression Ver")
+
 @app.route('/stroke-prediction')
 def stroke_prediction():
     return render_template("strokeprediction.html", title="Stroke Probability Prediction")
+
+@app.route('/diabetes-prediction-lr')
+def diabetes_prediction_lr():
+    return render_template("diabetesprediction-lr.html", title="Diabetes Prediction Logistical Regression Ver")
+
+@app.route('/diabetes-prediction-nn', methods=['POST', 'GET'])
+def diabetes_prediction_nn():
+    if request.method == "POST":
+        data = request.form
+        data_x = np.array([int(data.get('gender')), int(data.get('age')), int(data.get('hypertension')), int(data.get('heart-disease')), int(data.get('smoke-history')), float(data.get('bmi')),
+                        float(data.get('HbA1c-level')), float(data.get('blood-glucose-level'))]).reshape(-1, 8)
+        
+        prediction = diabetes_prediction_model_nn.predict(data_x)[0]
+
+        return render_template("diabetesprediction-nn-result.html", title="Diabetes Prediction Logistical Regression Ver", prediction=prediction[0])
+
+    return render_template("diabetesprediction-nn.html", title="Diabetes Prediction Logistical Regression Ver")
 
 @app.route('/breast-cancer-prediction')
 def breast_cancer_prediction():
@@ -68,12 +118,33 @@ def predict_car_price():
     prediction = car_price_prediction_model.predict(data_x)
     return jsonify({'prediction': prediction[0]})
 
+@app.route('/predict/concrete-strength-prediction-lr', methods=['POST'])
+def predict_concrete_strength_lr():
+    data = request.get_json()
+    data_x = np.array([data['cement'], data['slag'], data['flyash'], data['water'], data['superplasticizer'],
+                      data['coarseaggregate'], data['fineaggregate'], data['age']]).reshape(-1, 8)
+    prediction = concrete_strength_prediction_lrmodel.predict(data_x)
+    return jsonify({'csMpa': prediction[0]})
+
 @app.route('/predict/stroke-prediction', methods=['POST'])
 def predict_stroke():
     data = request.get_json()
     data_x = np.array([data['age'], data['heart_disease'], data['work_type'], data['avg_glucose_level'],
                       data['bmi']]).reshape(-1, 5)
     prediction = stroke_prediction_model.predict_proba(data_x)[:, 1]
+    return jsonify({'prediction': prediction[0]})
+
+@app.route('/predict/diabetes-prediction-lr', methods=['POST'])
+def predict_diabetes_lr():
+    data = request.get_json()
+    data_x = np.array([data['gender'], data['age'], data['hypertension'], data['heart_disease'], data['smoke_history'], data['bmi'],
+                      data['HbA1c_level'], data['blood_glucose_level']]).reshape(-1, 8)
+    
+    # from sklearn import preprocessing
+    # stand = preprocessing.StandardScaler()
+    # data_x = stand.fit_transform(data_x)
+
+    prediction = diabetes_prediction_model_lr.predict_proba(data_x)[:, 1]
     return jsonify({'prediction': prediction[0]})
 
 @app.route('/predict/breast-cancer-prediction', methods=['POST'])
@@ -126,6 +197,8 @@ def predict_tomato_leaf_disease():
         'Mosaic Virus': float(predictions[0][8]),
         'Healthy': float(predictions[0][9])
     })
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div v-if="loading">
+    <div id="loading-overlay">
+        <div id="loading-spinner"></div>
+    </div>
+</div>
+
+<div class="section-padding" id="main-content">
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <div class="col-lg-5 col-23 pe-lg-5">
+                <div class="contact-info">
+                    <h3 class="mb-4 text-center">{{ title }}</h3>
+
+                    <form action="/concrete-strength-prediction-nn" method="post">
+                        <div class="mb-2">
+                            <label for="cement" class="form-label">Cement: {% raw %} {{ input.cement }} {% endraw %}</label>
+                            <input type="range" name="cement" id="cement" min="0" max="500" step="0.1" class="form-range" v-model="input.cement">
+                        </div>
+                        
+                        <div class="mb-2">
+                            <label for="slag" class="form-label">Slag: {% raw %} {{ input.slag }} {% endraw %}</label>
+                            <input type="range" name="slag" id="slag" min="0" max="300" step="0.1" class="form-range" v-model="input.slag">
+                        </div>
+
+                        <div class="mb-2">
+                            <label for="flyash" class="form-label">Fly Ash: {% raw %} {{ input.flyash }} {% endraw %}</label>
+                            <input type="range" name="flyash" id="flyash" min="0" max="300" step="0.1" class="form-range" v-model="input.flyash">
+                        </div>
+                        
+                        <div class="mb-2">
+                            <label for="water" class="form-label">Water: {% raw %} {{ input.water }} {% endraw %}</label>
+                            <input type="range" name="water" id="water" min="0" max="300" step="0.1" class="form-range" v-model="input.water">
+                        </div>
+
+                        <div class="mb-2">
+                            <label for="superplasticizer" class="form-label">Superplasticizer: {% raw %} {{ input.superplasticizer }} {% endraw %}</label>
+                            <input type="range" name="superplasticizer" id="superplasticizer" min="0" max="50" step="0.1" class="form-range" v-model="input.superplasticizer">
+                        </div>
+
+                        <div class="mb-2">
+                            <label for="coarseaggregate" class="form-label">Coarse Aggregate: {% raw %} {{ input.coarseaggregate }} {% endraw %}</label>
+                            <input type="range" name="coarseaggregate" id="coarseaggregate" min="0" max="1500" step="0.1" class="form-range" v-model="input.coarseaggregate">
+                        </div>
+
+                        <div class="mb-2">
+                            <label for="fineaggregate" class="form-label">Fine Aggregate: {% raw %} {{ input.fineaggregate }} {% endraw %}</label>
+                            <input type="range" name="fineaggregate" id="fineaggregate" min="0" max="1500" step="0.1" class="form-range" v-model="input.fineaggregate">
+                        </div>
+
+                        <div class="mb-2">
+                            <label for="age" class="form-label">Age: {% raw %} {{ input.age }} {% endraw %}</label>
+                            <input type="range" name="age" id="age" min="0" max="500" step="0.1" class="form-range" v-model="input.age">
+                        </div>
+                        
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success">Predict</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- <div class="col-lg-5 col-12 mt-5 mt-lg-0">
+                <h3 class="mb-4 text-center">csMpa:</h3>
+                <h1 class="text-center mx-auto" style="width: fit-content;">{% raw %} {{ csMpa }} {% endraw %} </h1>
+            </div> -->
+        </div>
+
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block customjs %}
+<script src="{{ url_for('static', filename='js/axios.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vue.global.js') }}"></script>
+
+<script>
+    const { createApp } = Vue
+
+createApp({
+    data () {
+        return {
+            csMpa: 0.0,
+            input: {
+                cement:0.0,
+                slag: 0.0,
+                flyash: 0.0,
+                water: 0.0,
+                superplasticizer: 0.0,
+                coarseaggregate: 0.0,
+                fineaggregate: 0.0,
+                age: 0.0
+            },
+            loading: false
+        }
+    },
+
+    methods: {
+        // async get_predicton() {
+        //     const url = window.location.origin + "/predict/concrete-strength-prediction-lr"
+        //     this.loading = true
+            
+        //     this.input.cement = + this.input.cement
+        //     this.input.slag = + this.input.slag
+        //     this.input.flyash = + this.input.flyash
+        //     this.input.water = + this.input.water
+        //     this.input.superplasticizer = + this.input.superplasticizer
+        //     this.input.coarseaggregate = + this.input.coarseaggregate
+        //     this.input.fineaggregate = + this.input.fineaggregate
+        //     this.input.age = + this.input.age
+
+        //     axios.post(url, this.input, {
+        //         headers : {
+        //             'Content-Type' : 'Application/json'
+        //         }
+        //     }).then(response => {
+        //         this.csMpa = response.data.csMpa
+        //         this.csMpa = this.csMpa.toFixed(3)
+        //         this.loading = false
+        //     })
+
+        // }
+    }
+}).mount("#app")
+</script>
+
+{% endblock %}

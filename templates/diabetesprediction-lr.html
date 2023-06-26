@@ -13,16 +13,25 @@
 
             <div class="col-lg-5 col-23 pe-lg-5">
                 <div class="contact-info">
-                    <h3 class="mb-4">Stroke Probability Prediction</h3>
+                    <h3 class="mb-4">{{ title }}</h3>
 
+                    <div class="mb-3">
+                        <label for="gender" class="form-label">Gender</label>
+                        <select class="form-select" aria-label="Default select example" id="gender" v-model="input.gender">
+                            <option selected value="0">Male</option>
+                            <option value="1">Female</option>
+                            <option value="2">Other</option>
+                        </select>
+                    </div>
+                
                     <div class="mb-2">
                         <label for="age" class="form-label">Age: {% raw %} {{ input.age }} {% endraw %}</label>
                         <input type="range" class="form-range" min="0" max="150" step="1" id="age" v-model="input.age">
                     </div>
 
                     <div class="mb-3">
-                        <label for="heart-disease" class="form-label">Do you have heart disease?</label>
-                        <select class="form-select" aria-label="Default select example" id="heart-disease" v-model="input.heart_disease">
+                        <label for="hypertension" class="form-label">Do you have hypertension?</label>
+                        <select class="form-select" aria-label="Default select example" id="hypertension" v-model="input.hypertension">
                             <option selected value="1">Yes</option>
                             <option value="0">No</option>
                         </select>
@@ -37,24 +46,31 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="work-type" class="form-label">Work Type</label>
-                        <select class="form-select" aria-label="Default select example" id="work-type" v-model="input.work_type">
-                            <option selected value="0">Children</option>
-                            <option value="1">Government Job</option>
-                            <option value="2">Self-Employed</option>
-                            <option value="4">Private</option>
+                        <label for="smoke-history" class="form-label">Do you smoke?</label>
+                        <select class="form-select" aria-label="Default select example" id="smoke-history" v-model="input.smoke_history">
+                            <option selected value="0">Currently Smoking</option>
+                            <option value="1">Prior Smoker</option>
+                            <option value="2">Former Smoker</option>
+                            <option value="3">Never Smoked</option>
                         </select>
-                    </div>
-
-                    <div class="mb-2">
-                        <label for="avg-glucose-lvl" class="form-label">Average Glucose Level: {% raw %} {{ input.avg_glucose_level }} {% endraw %}</label>
-                        <input type="range" class="form-range" min="0" max="300" step="0.1" id="avg-glucose-lvl" v-model="input.avg_glucose_level">
                     </div>
 
                     <div class="mb-2">
                         <label for="bmi" class="form-label">BMI: {% raw %} {{ input.bmi }} {% endraw %}</label>
-                        <input type="range" class="form-range" min="0" max="50" step="0.1" id="bmi" v-model="input.bmi">
+                        <input type="range" class="form-range" min="0" max="100" step="0.01" id="bmi" v-model="input.bmi">
                     </div>
+
+                    <div class="mb-2">
+                        <label for="HbA1c-level" class="form-label">HbA1c Level: {% raw %} {{ input.HbA1c_level }} {% endraw %}</label>
+                        <input type="range" class="form-range" min="0" max="9" step="0.01" id="HbA1c-level" v-model="input.HbA1c_level">
+                    </div>
+
+                    <div class="mb-2">
+                        <label for="blood-glucose-level" class="form-label">Blood Glucose Level: {% raw %} {{ input.blood_glucose_level }} {% endraw %}</label>
+                        <input type="range" class="form-range" min="0" max="300" step="0.1" id="blood-glucose-level" v-model="input.blood_glucose_level">
+                    </div>
+
+                    
 
                     <div class="d-grid">
                         <button class="btn btn-success" v-on:click="get_predicton">Predict</button>
@@ -86,11 +102,14 @@ createApp({
         return {
             probability: 0.0,
             input: {
+                gender: 0,
                 age: 0,
+                hypertension: 0,
                 heart_disease: 1,
-                work_type: 4,
-                avg_glucose_level: 0.0,
-                bmi: 0.0
+                smoke_history: 0,
+                bmi: 0,
+                HbA1c_level: 0,
+                blood_glucose_level: 0
             },
             loading: false
         }
@@ -98,14 +117,17 @@ createApp({
 
     methods: {
         async get_predicton() {
-            const url = window.location.origin + "/predict/stroke-prediction"
+            const url = window.location.origin + "/predict/diabetes-prediction-lr"
             this.loading = true
 
+            this.input.gender = + this.input.gender
             this.input.age = + this.input.age
+            this.input.hypertension = + this.input.hypertension
             this.input.heart_disease = + this.input.heart_disease
-            this.input.work_type = + this.input.work_type
-            this.input.avg_glucose_level = + this.input.avg_glucose_level
+            this.input.smoke_history = + this.input.smoke_history
             this.input.bmi = + this.input.bmi
+            this.input.HbA1c_level = + this.input.HbA1c_level
+            this.input.blood_glucose_level = + this.input.blood_glucose_level
 
             axios.post(url, this.input, {
                 headers : {

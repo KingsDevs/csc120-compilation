@@ -1,6 +1,27 @@
 {% extends "base.html" %}
 
 {% block content %}
+<section class="about-section section-padding pb-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-12 mx-auto">
+                <div class="mb-1">
+                    <div class="section-title-wrap mb-4">
+                        <h5 class="section-title">{{ title }}</h5>
+                    </div>
+
+                    <img src="{{ url_for('static', filename='images/neural-network.gif') }}" alt="" class="about-image mb-5 img-fluid">
+                    <p>A vanilla neural network, also known as a feedforward neural network or multilayer perceptron (MLP), is a fundamental type of artificial neural network widely used in machine learning. It is called "vanilla" to distinguish it from other specialized or modified neural network architectures.</p>
+                    <p>As its core, vanilla neural network is a series of interconnected layers of artificial neurons that process information in a feedforward manner. Each neuron takes input from the previous layer, computes a weighted sum, applies an activation function, and passes the result to the next layer.</p>
+                    <p>The purpose of a vanilla neural networks learn patterns in data through training, adjusting neuron weights and biases to minimize prediction errors. Optimization algorithms like gradient descent are commonly used for this training process.</p>
+                    <p>The simplicity and flexibility of vanilla neural networks make them a popular choice for many machine learning applications. However, they may have limitations in handling complex data dependencies and can suffer from overfitting if not properly regularized. Advanced neural network architectures, such as convolutional neural networks (CNNs) for image processing or recurrent neural networks (RNNs) for sequential data, have been developed to address specific challenges in different domains.</p>
+                    <p>Overall, vanilla neural networks provide a powerful tool for modeling and solving a wide array of problems, leveraging their ability to learn intricate patterns and make predictions based on learned representations.</p>
+                
+                </div>
+            </div>
+        </div>
+    </div>  
+</section>
 <section class="latest-podcast-section section-padding pb-0">
     <div class="container">
         <div class="row justufy-content-center">
