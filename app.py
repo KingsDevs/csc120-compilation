@@ -11,8 +11,6 @@ concrete_strength_prediction_lrmodel = pickle.load(open("mlmodels/concrete_stren
 stroke_prediction_model = pickle.load(open('mlmodels/stroke_prediction.pickle', 'rb'))
 diabetes_prediction_model_lr = pickle.load(open('mlmodels/diabetes_prediction_logr.pickle', 'rb'))
 
-
-concrete_strength_prediction_nnmodel = keras.models.load_model("mlmodels/concrete_strength_prediction_nn.h5")
 diabetes_prediction_model_nn = keras.models.load_model("mlmodels/diabetes_prediction_nn.h5")
 tomato_leaf_models = []
 tomato_leaf_models.append(keras.models.load_model('mlmodels/tomato_leaf_disease_detection.h5'))
@@ -63,6 +61,7 @@ def concrete_strength_prediction_nn():
 
         data_x = np.array([cement, slag, flyash, water, superplasticizer, coarseaggregate, fineaggregate, age]).reshape(-1, 8)
         
+        concrete_strength_prediction_nnmodel = keras.models.load_model("mlmodels/concrete_strength_prediction_nn.h5")
 
         prediction = concrete_strength_prediction_nnmodel.predict(data_x)[0]
         prediction = format(prediction[0], '.3f')
