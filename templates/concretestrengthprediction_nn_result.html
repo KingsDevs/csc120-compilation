@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div v-if="loading">
+    <div id="loading-overlay">
+        <div id="loading-spinner"></div>
+    </div>
+</div>
+
+<div class="section-padding" id="main-content">
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <div class="col-lg-5 col-23 pe-lg-5">
+                <div class="contact-info">
+                    <h3 class="mb-4 text-center">{{ title }}</h3>
+
+                    <h3 class="mb-4 text-center">csMpa:</h3>
+                    <h1 class="text-center mx-auto" style="width: fit-content;">{{ prediction }}</h1>
+                
+                    <div class="d-grid mt-5">
+                        <a href="{{ url_for('concrete_strength_prediction_nn') }}" class="btn btn-danger text-center">Back</a>
+                    </div>
+                </div>
+            <!-- <div class="col-lg-5 col-12 mt-5 mt-lg-0">
+                
+            </div> -->
+        </div>
+
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block customjs %}
+<script src="{{ url_for('static', filename='js/axios.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vue.global.js') }}"></script>
+
+<script>
+    const { createApp } = Vue
+
+createApp({
+    data () {
+        return {
+            csMpa: 0.0,
+            input: {
+                cement:0.0,
+                slag: 0.0,
+                flyash: 0.0,
+                water: 0.0,
+                superplasticizer: 0.0,
+                coarseaggregate: 0.0,
+                fineaggregate: 0.0,
+                age: 0.0
+            },
+            loading: false
+        }
+    },
+
+    methods: {
+        // async get_predicton() {
+        //     const url = window.location.origin + "/predict/concrete-strength-prediction-lr"
+        //     this.loading = true
+            
+        //     this.input.cement = + this.input.cement
+        //     this.input.slag = + this.input.slag
+        //     this.input.flyash = + this.input.flyash
+        //     this.input.water = + this.input.water
+        //     this.input.superplasticizer = + this.input.superplasticizer
+        //     this.input.coarseaggregate = + this.input.coarseaggregate
+        //     this.input.fineaggregate = + this.input.fineaggregate
+        //     this.input.age = + this.input.age
+
+        //     axios.post(url, this.input, {
+        //         headers : {
+        //             'Content-Type' : 'Application/json'
+        //         }
+        //     }).then(response => {
+        //         this.csMpa = response.data.csMpa
+        //         this.csMpa = this.csMpa.toFixed(3)
+        //         this.loading = false
+        //     })
+
+        // }
+    }
+}).mount("#app")
+</script>
+
+{% endblock %}

@@ -45,6 +45,31 @@ def Deep_Reinforcement_learning():
 def car_price_prediction():
     return render_template('carpriceprediction.html', title="Car Price Prediction")
 
+@app.route('/concrete-strength-prediction-nn', methods=['POST', 'GET'])
+def concrete_strength_prediction_nn():
+    if request.method == 'POST':
+        data = request.form
+
+        cement = float(data.get('cement'))
+        slag = float(data.get('slag'))
+        flyash = float(data.get('flyash'))
+        water = float(data.get('water'))
+        superplasticizer = float(data.get('superplasticizer'))
+        coarseaggregate = float(data.get('coarseaggregate'))
+        fineaggregate = float(data.get('fineaggregate'))
+        age = float(data.get('age'))
+
+        data_x = np.array([cement, slag, flyash, water, superplasticizer, coarseaggregate, fineaggregate, age]).reshape(-1, 8)
+        
+
+        prediction = concrete_strength_prediction_lrmodel.predict(data_x)[0]
+        prediction = format(prediction, '.3f')
+
+        return render_template("concretestrengthprediction_nn_result.html", title="Concrete Strength Prediction Linear Regression Ver", prediction=prediction)
+
+
+    return render_template("concretestrengthprediction_nn.html", title="Concrete Strength Prediction Linear Regression Ver")
+
 @app.route('/concrete-strength-prediction-lr')
 def concrete_strength_prediction_lr():
     return render_template("concretestrengthprediction_lr.html", title="Concrete Strength Prediction Linear Regression Ver")
