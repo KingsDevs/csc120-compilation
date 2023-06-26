@@ -12,6 +12,8 @@ stroke_prediction_model = pickle.load(open('mlmodels/stroke_prediction.pickle', 
 diabetes_prediction_model_lr = pickle.load(open('mlmodels/diabetes_prediction_logr.pickle', 'rb'))
 breast_cancer_prediction_model = keras.models.load_model('mlmodels/breast_cancer_prediction.h5')
 
+concrete_strength_prediction_nnmodel = keras.models.load_model("mlmodels/concrete_strength_prediction_nn.h5")
+diabetes_prediction_model_nn = keras.models.load_model("mlmodels/diabetes_prediction_nn.h5")
 tomato_leaf_models = []
 tomato_leaf_models.append(keras.models.load_model('mlmodels/tomato_leaf_disease_detection.h5'))
 tomato_leaf_models.append(keras.models.load_model('mlmodels/tomato_leaf_disease_detection_inception.h5'))
@@ -62,8 +64,8 @@ def concrete_strength_prediction_nn():
         data_x = np.array([cement, slag, flyash, water, superplasticizer, coarseaggregate, fineaggregate, age]).reshape(-1, 8)
         
 
-        prediction = concrete_strength_prediction_lrmodel.predict(data_x)[0]
-        prediction = format(prediction, '.3f')
+        prediction = concrete_strength_prediction_nnmodel.predict(data_x)[0]
+        prediction = format(prediction[0], '.3f')
 
         return render_template("concretestrengthprediction_nn_result.html", title="Concrete Strength Prediction Deep Learning Ver", prediction=prediction)
 
@@ -89,7 +91,7 @@ def diabetes_prediction_nn():
         data_x = np.array([int(data.get('gender')), int(data.get('age')), int(data.get('hypertension')), int(data.get('heart-disease')), int(data.get('smoke-history')), float(data.get('bmi')),
                         float(data.get('HbA1c-level')), float(data.get('blood-glucose-level'))]).reshape(-1, 8)
         
-        prediction = diabetes_prediction_model_lr.predict_proba(data_x)[:, 1]
+        prediction = diabetes_prediction_model_nn.predict(data_x)[0]
 
         return render_template("diabetesprediction-nn-result.html", title="Diabetes Prediction Logistical Regression Ver", prediction=prediction[0])
 
