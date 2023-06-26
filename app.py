@@ -10,7 +10,7 @@ car_price_prediction_model = pickle.load(open("mlmodels/car_price_prediction.pic
 concrete_strength_prediction_lrmodel = pickle.load(open("mlmodels/concrete_strength_prediction_lr.pickle", "rb"))
 stroke_prediction_model = pickle.load(open('mlmodels/stroke_prediction.pickle', 'rb'))
 diabetes_prediction_model_lr = pickle.load(open('mlmodels/diabetes_prediction_logr.pickle', 'rb'))
-breast_cancer_prediction_model = keras.models.load_model('mlmodels/breast_cancer_prediction.h5')
+
 
 concrete_strength_prediction_nnmodel = keras.models.load_model("mlmodels/concrete_strength_prediction_nn.h5")
 diabetes_prediction_model_nn = keras.models.load_model("mlmodels/diabetes_prediction_nn.h5")
@@ -164,6 +164,7 @@ def predict_breast_cancer():
         request_data['concave_points_worst'], request_data['symmetry_worst'], request_data['fractal_dimension_worst']
     ]).reshape(-1, 30)
 
+    breast_cancer_prediction_model = keras.models.load_model('mlmodels/breast_cancer_prediction.h5')
     prediction = breast_cancer_prediction_model.predict(data)
 
     proba = float(prediction[0])
