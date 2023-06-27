@@ -6,16 +6,6 @@ import pickle
 
 app = Flask(__name__)
 
-car_price_prediction_model = pickle.load(open("mlmodels/car_price_prediction.pickle", "rb"))
-concrete_strength_prediction_lrmodel = pickle.load(open("mlmodels/concrete_strength_prediction_lr.pickle", "rb"))
-stroke_prediction_model = pickle.load(open('mlmodels/stroke_prediction.pickle', 'rb'))
-diabetes_prediction_model_lr = pickle.load(open('mlmodels/diabetes_prediction_logr.pickle', 'rb'))
-
-diabetes_prediction_model_nn = keras.models.load_model("mlmodels/diabetes_prediction_nn.h5")
-tomato_leaf_models = []
-tomato_leaf_models.append(keras.models.load_model('mlmodels/tomato_leaf_disease_detection.h5'))
-tomato_leaf_models.append(keras.models.load_model('mlmodels/tomato_leaf_disease_detection_inception.h5'))
-tomato_leaf_models.append(keras.models.load_model('mlmodels/pretrain_model.h5'))
 
 @app.route('/')
 def home():
@@ -90,6 +80,7 @@ def diabetes_prediction_nn():
         data_x = np.array([int(data.get('gender')), int(data.get('age')), int(data.get('hypertension')), int(data.get('heart-disease')), int(data.get('smoke-history')), float(data.get('bmi')),
                         float(data.get('HbA1c-level')), float(data.get('blood-glucose-level'))]).reshape(-1, 8)
         
+        diabetes_prediction_model_nn = keras.models.load_model("mlmodels/diabetes_prediction_nn.h5")
         prediction = diabetes_prediction_model_nn.predict(data_x)[0]
 
         return render_template("diabetesprediction-nn-result.html", title="Diabetes Prediction Neural Network Regression Ver", prediction=prediction[0])
@@ -114,6 +105,8 @@ def predict_car_price():
     data = request.get_json()
     data_x = np.array([data['engineSize'], data['boreratio'], data['compressionratio'], data['horsepower'],
                       data['peakrpm'], data['citympg'], data['highwaympg']]).reshape(-1, 7)
+    
+    car_price_prediction_model = pickle.load(open("mlmodels/car_price_prediction.pickle", "rb"))
     prediction = car_price_prediction_model.predict(data_x)
     return jsonify({'prediction': prediction[0]})
 
@@ -122,6 +115,8 @@ def predict_concrete_strength_lr():
     data = request.get_json()
     data_x = np.array([data['cement'], data['slag'], data['flyash'], data['water'], data['superplasticizer'],
                       data['coarseaggregate'], data['fineaggregate'], data['age']]).reshape(-1, 8)
+    
+    concrete_strength_prediction_lrmodel = pickle.load(open("mlmodels/concrete_strength_prediction_lr.pickle", "rb"))
     prediction = concrete_strength_prediction_lrmodel.predict(data_x)
     return jsonify({'csMpa': prediction[0]})
 
@@ -130,6 +125,8 @@ def predict_stroke():
     data = request.get_json()
     data_x = np.array([data['age'], data['heart_disease'], data['work_type'], data['avg_glucose_level'],
                       data['bmi']]).reshape(-1, 5)
+    
+    stroke_prediction_model = pickle.load(open('mlmodels/stroke_prediction.pickle', 'rb'))
     prediction = stroke_prediction_model.predict_proba(data_x)[:, 1]
     return jsonify({'prediction': prediction[0]})
 
@@ -142,6 +139,8 @@ def predict_diabetes_lr():
     # from sklearn import preprocessing
     # stand = preprocessing.StandardScaler()
     # data_x = stand.fit_transform(data_x)
+
+    diabetes_prediction_model_lr = pickle.load(open('mlmodels/diabetes_prediction_logr.pickle', 'rb'))
 
     prediction = diabetes_prediction_model_lr.predict_proba(data_x)[:, 1]
     return jsonify({'prediction': prediction[0]})
@@ -177,10 +176,16 @@ def predict_tomato_leaf_disease():
     image = Image.open(image_file)
 
     model_index = int(request.form.get('model'))
-    if model_index < 0: model_index = 0
+    if model_index < 0: 
+        model_index = 0
 
-    model = tomato_leaf_models[model_index]
-
+    if model_index == 0:
+        model = keras.models.load_model('mlmodels/tomato_leaf_disease_detection.h5')
+    elif model_index == 1:
+        model = keras.models.load_model('mlmodels/tomato_leaf_disease_detection_inception.h5')
+    else:
+        model = keras.models.load_model('mlmodels/pretrain_model.h5')
+    
     image = image.resize((112, 112))
     image = np.expand_dims(image, axis=0)
     predictions = model.predict(image)
