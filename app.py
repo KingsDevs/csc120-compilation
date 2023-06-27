@@ -73,19 +73,19 @@ def stroke_prediction():
 def diabetes_prediction_lr():
     return render_template("diabetesprediction-lr.html", title="Diabetes Prediction Logistical Regression Ver")
 
-@app.route('/diabetes-prediction-nn', methods=['POST', 'GET'])
+@app.route('/diabetes-prediction-nn')
 def diabetes_prediction_nn():
-    if request.method == "POST":
-        data = request.form
-        data_x = np.array([int(data.get('gender')), int(data.get('age')), int(data.get('hypertension')), int(data.get('heart-disease')), int(data.get('smoke-history')), float(data.get('bmi')),
-                        float(data.get('HbA1c-level')), float(data.get('blood-glucose-level'))]).reshape(-1, 8)
+    # if request.method == "POST":
+    #     data = request.form
+    #     data_x = np.array([int(data.get('gender')), int(data.get('age')), int(data.get('hypertension')), int(data.get('heart-disease')), int(data.get('smoke-history')), float(data.get('bmi')),
+    #                     float(data.get('HbA1c-level')), float(data.get('blood-glucose-level'))]).reshape(-1, 8)
         
-        diabetes_prediction_model_nn = keras.models.load_model("mlmodels/diabetes_prediction_nn.h5")
-        prediction = diabetes_prediction_model_nn.predict(data_x)[0]
+    #     diabetes_prediction_model_nn = keras.models.load_model("mlmodels/diabetes_prediction_nn.h5")
+    #     prediction = diabetes_prediction_model_nn.predict(data_x)[0]
 
-        return render_template("diabetesprediction-nn-result.html", title="Diabetes Prediction Neural Network Regression Ver", prediction=prediction[0])
+    #     return render_template("diabetesprediction-nn-result.html", title="Diabetes Prediction Neural Network Regression Ver", prediction=prediction[0])
 
-    return render_template("diabetesprediction-nn.html", title="Diabetes Prediction Neural Network Regression Ver")
+    return render_template("diabetesprediction-nn.html", title="Diabetes Prediction Neural Network Ver")
 
 @app.route('/breast-cancer-prediction')
 def breast_cancer_prediction():
@@ -156,6 +156,17 @@ def predict_diabetes_lr():
 
     prediction = diabetes_prediction_model_lr.predict_proba(data_x)[:, 1]
     return jsonify({'prediction': prediction[0]})
+
+@app.route('/predict/diabetes-prediction-nn', methods=['POST'])
+def predict_diabetes_nn():
+    data = request.get_json()
+    data_x = np.array([data['gender'], data['age'], data['hypertension'], data['heart_disease'], data['smoke_history'], data['bmi'],
+                      data['HbA1c_level'], data['blood_glucose_level']]).reshape(-1, 8)
+
+    diabetes_prediction_model_nn = keras.models.load_model("mlmodels/diabetes_prediction_nn.h5")
+    prediction = diabetes_prediction_model_nn.predict(data_x)[0]
+
+    return jsonify({'prediction': float(prediction[0])})
 
 @app.route('/predict/breast-cancer-prediction', methods=['POST'])
 def predict_breast_cancer():
