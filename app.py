@@ -92,9 +92,9 @@ def diabetes_prediction_nn():
         
         prediction = diabetes_prediction_model_nn.predict(data_x)[0]
 
-        return render_template("diabetesprediction-nn-result.html", title="Diabetes Prediction Logistical Regression Ver", prediction=prediction[0])
+        return render_template("diabetesprediction-nn-result.html", title="Diabetes Prediction Neural Network Regression Ver", prediction=prediction[0])
 
-    return render_template("diabetesprediction-nn.html", title="Diabetes Prediction Logistical Regression Ver")
+    return render_template("diabetesprediction-nn.html", title="Diabetes Prediction Neural Network Regression Ver")
 
 @app.route('/breast-cancer-prediction')
 def breast_cancer_prediction():
