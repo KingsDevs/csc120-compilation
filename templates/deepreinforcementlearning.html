@@ -30,64 +30,208 @@
                     <h4 class="section-title">Applications</h4>
                 </div>
 
-                <div class="row mb-3">
-                    <div class="col-lg-3 col-12">
-                        <div class="custom-block-icon-wrap">
-                            <div class="custom-block-image-wrap custom-block-image-detail-page">
-                                <img src="{{ url_for('static', filename='images/carprice-prediction.jpg') }}" alt="" class="custom-block-image img-fluid">
+                <div class="row-mb-5">
+                    <div class="custom-block-info">
+                        <div class="custom-block-top d-flex mb-1">
+                            <small class="me-4">
+                                <a href="/rl">
+                                    <i class="bi-play">
+                                        Go to App
+                                    </i>
+                                </a>
+                            </small>
+                        </div>
+
+                        <div class="mb-5">
+                            <h2 class="mb-2">Autonomous Drone Navigation</h2>
+                            <p>
+                                The primary objective of this project is to enable the drone's autonomous navigation capabilities, enabling it to reach its designated goal or destination swiftly and without any crashes.
+                            </p>
+
+                            <p>
+                                Our project employs the powerful technique of Deep Reinforcement Learning with Proximal Policy Optimization (PPO). This approach leverages the capabilities of neural networks and reinforcement learning algorithms to enable the drone to autonomously navigate towards its goal or destination efficiently and effectively. By utilizing PPO, we can optimize the drone's policy, allowing it to learn from experience and make intelligent decisions in real-time, leading to improved performance and faster navigation.
+                            </p>
+                        </div>
+
+                        <div class="mb-5">
+                            <h2 class="mb-2">Environment</h2>
+                            <p>
+                                In this project, a 2D environment was utilized and simulated using Unity Game Engine specifically UnityMLAgents package.
+                            </p>
+        
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col">
+                                        <img src="{{ url_for('static', filename='images/unity.jpg') }}" class="img-fluid w-100">
+                                    </div>
+                                    <div class="col">
+                                        <img src="{{ url_for('static', filename='images/unity-env.png') }}" class="img-fluid w-100">
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="col-lg-9 col-12">
-                        <div class="custom-block-info">
-                            <div class="custom-block-top d-flex mb-1">
-                                <small class="me-4">
-                                    <a href="/car-price-prediction">
-                                        <i class="bi-play">
-                                            Go to App
-                                        </i>
-                                    </a>
-                                </small>
+                        <div class="mb-5">
+                            <h2 class="mb-2">Observations</h2>
+                            <div class="col">
+                                <div class="row">
+                                    <ul class="col">
+                                        <li>Drone X Position</li>
+                                        <li>Drone Y Position</li>
+                                        <li>Goal X Position</li>
+                                        <li>Goal Y Position</li>
+                                        <li>Drone X Velocity</li>
+                                        <li>Drone Y Velocity</li>
+                                        <li>Drone to Goal Distance</li>
+                                        <li>Drone to Goal Angle</li>
+                                        <li>Ray Preception</li>
+                                    </ul>
+
+                                    <div class="col">
+                                        <img src="{{ url_for('static', filename='images/raypreception.png') }}" class="img-fluid w-100">
+                                    </div>
+                                </div>
                             </div>
-                            
-                            <h2 class="mb-2">Car Price Prediction</h2>
+                        </div>
 
-                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit quae labore similique qui ipsam modi, sed est ratione cumque molestias dolorum reprehenderit esse officiis quis minus atque, nisi, vero officia!</p>
-                            
+                        <div class="mb-5">
+                            <h2 class="mb-2">Actions</h2>
+                            <p><b>Continous Actions:</b></p>
+                            <ul>
+                                <li>Left</li>
+                                <li>Right</li>
+                            </ul>
+                            <p><b>Discrete Actions:</b></p>
+                            <ul>
+                                <li><b>0</b> - Do Not Thrust and <b>1</b> - Thrust</li>
+                                <li><b>0</b> - Not Allowed to Move and <b>1</b> - Allowed to Move</li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-5">
+                            <h2 class="mb-2">Agent</h2>
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col">
+                                        <p>
+                                            The agent employed in this project is a Micro Aerial Vehicle (MAV) specifically designed for 2D environments.
+                                        </p>
+                                        <p>
+                                            MAVs are lightweight unmanned drones that are highly portable.
+                                        </p>
+                                        <p>
+                                            MAVs can be designed to carry out tasks autonomously or under remote human control.
+                                        </p>
+                                    </div>
+
+                                    <div class="col">
+                                        <img src="{{ url_for('static', filename='images/drone_improve.png') }}" class="img-fluid w-100">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-5">
+                            <h2 class="mb-2">Architecture</h2>
+                            <p>The architecture of the network with <b>128 hidden units and 3 layers.</b></p>
+                            <p>The architecture also incorporates the use of <b>GAIL (Generative Adversarial Imitation Learning)</b> to enhance the training process. GAIL is a technique that leverages expert demonstrations to guide the learning of the agent, resulting in improved training efficiency. The GAIL reward signal in this architecture has a <b>strength of 0.5 and a discount factor (gamma) of 0.6.</b></p>
+                            <ul>
+                                <li><b>Learning Rate: 4.0e-4</b></li>
+                                <li><b>Epsilon: 0.1</b></li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-5">
+                            <h2 class="mb-2">Evaluation</h2>
+                            <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Train Number</th>
+                                    <th scope="col">Episodes</th>
+                                    <th scope="col">Crashes</th>
+                                    <th scope="col">Goal Reached</th>
+                                    <th scope="col">Success Rate</th>
+                                    <th scope="col">Avg Travel Time to Goal</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <th scope="row">1</th>
+                                    <td>24</td>
+                                    <td>5</td>
+                                    <td>5</td>
+                                    <td>20.83333333%</td>
+                                    <td>6.695999s</td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">2</th>
+                                    <td>48</td>
+                                    <td>18</td>
+                                    <td>22</td>
+                                    <td>45.83333333%</td>
+                                    <td>3.623637s</td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">3</th>
+                                    <td>84</td>
+                                    <td>39</td>
+                                    <td>41</td>
+                                    <td>48.80952381%</td>
+                                    <td>3.623637s</td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">4</th>
+                                    <td>58</td>
+                                    <td>21</td>
+                                    <td>27</td>
+                                    <td>46.55172414%</td>
+                                    <td>3.259259s</td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">5</th>
+                                    <td>27</td>
+                                    <td>6</td>
+                                    <td>6</td>
+                                    <td>22.22222222%</td>
+                                    <td>2.273334s</td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">6</th>
+                                    <td>78</td>
+                                    <td>39</td>
+                                    <td>37</td>
+                                    <td>47.43589744%</td>
+                                    <td>4.596216s</td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">7</th>
+                                    <td>79</td>
+                                    <td>15</td>
+                                    <td>62</td>
+                                    <td>78.48101266%</td>
+                                    <td>3.941613s</td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">8</th>
+                                    <td>100</td>
+                                    <td>24</td>
+                                    <td>75</td>
+                                    <td>75%</td>
+                                    <td>3.262399s</td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">9</th>
+                                    <td>106</td>
+                                    <td>15</td>
+                                    <td>89</td>
+                                    <td>83.96226415%</td>
+                                    <td>3.432122s</td>
+                                  </tr>
+                                </tbody>
+                              </table>
                         </div>
                     </div>
                 </div>
-
-                <div class="row mb-3">
-                    <div class="col-lg-3 col-12">
-                        <div class="custom-block-icon-wrap">
-                            <div class="custom-block-image-wrap custom-block-image-detail-page">
-                                <img src="{{ url_for('static', filename='images/carprice-prediction.jpg') }}" alt="" class="custom-block-image img-fluid">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-9 col-12">
-                        <div class="custom-block-info">
-                            <div class="custom-block-top d-flex mb-1">
-                                <small class="me-4">
-                                    <a href="{{ url_for('car_price_prediction') }}">
-                                        <i class="bi-play">
-                                            Go to App
-                                        </i>
-                                    </a>
-                                </small>
-                            </div>
-                            
-                            <h2 class="mb-2">Car Price Prediction</h2>
-                            
-                            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eveniet cum illum error odio, ipsa optio non sapiente. Enim, voluptas fugit corporis, voluptatibus animi aliquid, ipsum autem delectus vitae porro molestias. </p>
-
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>

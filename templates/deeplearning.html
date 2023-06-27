@@ -64,6 +64,14 @@
                                 <li><b>Mosaic virus</b></li>
 
                             </ul>
+
+                            <h6 class="mt-3">ACCURACY:</h6>
+                            <ul>
+                                <li>Vanilla CNN: <b>86%</b></li>
+                                <li>InceptionV3: <b>52%</b></li>
+                                <li>Pre-trained Model: <b>98%</b></li>
+                            </ul>
+
                             <h6 class="mt-3">HOW TO USE</h6>
                             <p><b>To use the tomato leaf disease application, simply upload an image of the affected tomato leaf and click "predict." The application will analyze the image and provide a prediction of the specific disease affecting the tomato plant.</b></p>
                         </div>
@@ -74,7 +82,7 @@
                     <div class="col-lg-3 col-12">
                         <div class="custom-block-icon-wrap">
                             <div class="custom-block-image-wrap custom-block-image-detail-page">
-                                <img src="{{ url_for('static', filename='images/carprice-prediction.jpg') }}" alt="" class="custom-block-image img-fluid">
+                                <img src="{{ url_for('static', filename='images/concrete strength.jpg') }}" alt="" class="custom-block-image img-fluid">
                             </div>
                         </div>
                     </div>
@@ -83,7 +91,7 @@
                         <div class="custom-block-info">
                             <div class="custom-block-top d-flex mb-1">
                                 <small class="me-4">
-                                    <a href="{{ url_for('car_price_prediction') }}">
+                                    <a href="/concrete-strength-prediction-nn">
                                         <i class="bi-play">
                                             Go to App
                                         </i>
@@ -91,9 +99,31 @@
                                 </small>
                             </div>
                             
-                            <h2 class="mb-2">Car Price Prediction</h2>
+                            <h2 class="mb-2">Concrete Strength Prediction(Deep Learning)</h2>
                             
-                            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eveniet cum illum error odio, ipsa optio non sapiente. Enim, voluptas fugit corporis, voluptatibus animi aliquid, ipsum autem delectus vitae porro molestias. </p>
+                            <p>The Concrete Strength Prediction model using Deep Learning is an advanced solution that accurately predicts concrete strength based on various input parameters. By utilizing deep neural networks and advanced machine learning algorithms, the model extracts meaningful representations from the data and provides precise estimates of concrete strength.</p>
+                            <p>The following variables as input or predictor variables: <b> cement, slag, fly ash, water, superplasticizer, coarse aggregate, fine aggregate, age.</b></p>
+                            
+                            <h6 class="mt-3">ARCHITECTURE:</h6>
+                            <p><b>Hidden Layers:</b></p>
+                            <ul>
+                                <li>16 nodes, Relu Activation Function</li>
+                                <li>64 nodes, Relu Activation Function</li>
+                            </ul>
+
+                            <p><b>Output Layer:</b></p>
+                            <ul>
+                                <li>1 node, Sigmoid Activation Function</li>
+                            </ul>
+
+                            <p>Loss: <b>Binary Crossentropy</b></p>
+                            <p>Optimizer: <b>adam</b></p>
+                            <p>Metrics: <b>accuracy</b></p>
+
+                            <h6 class="mt-3">ACCURACY: 97%</h6>
+                            
+                            <h6 class="mt-3">HOW TO USE</h6>
+                            <p><b>To use the concrete strength prediction application, input the relevant information and click "predict." The application will analyze this data and provide an estimation of the concrete's strength.</b></p>
 
                         </div>
                     </div>
