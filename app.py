@@ -202,8 +202,12 @@ def predict_tomato_leaf_disease():
         'Mosaic Virus': float(predictions[0][8]),
         'Healthy': float(predictions[0][9])
     })
-
+@app.route('/about')
+def about():
+    return render_template("about.html", title="About")
 
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+

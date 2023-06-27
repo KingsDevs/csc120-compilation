@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!doctype html>
+<html lang="en">
+        <section class="about-section section-padding" id="section_2">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-8 col-12 mx-auto">
+                        <div class="pb-5 mb-5">
+                            <div class="section-title-wrap mb-4">
+                                <h4 class="section-title">INTRODUCTION</h4>
+                            </div>
+
+                            <p><b>Welcome to our CSC 120 Compilation, where we explore an exciting range of topics on intelligent systems. Here, we'll delve into essential concepts like linear regression, logistic regression, vanilla neural networks, deep learning, and deep reinforcement learning. What makes this compilation even more intriguing is that each of these topics comes with its own set of fascinating real-world applications. So, get ready to embark on a captivating journey into the world of intelligent systems!</b></p>
+
+                            <img src="images/medium-shot-young-people-recording-podcast.jpg"
+                                class="about-image mt-5 img-fluid" alt="">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 col-12">
+                        <div class="section-title-wrap mb-5">
+                            <h4 class="section-title">Meet the Team</h4>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="team-thumb bg-white shadow-lg">
+                                <img src="{{ url_for('static', filename='images/juvimie_gwapa.jpg') }}"
+                                    class="about-image img-fluid fixed-profile-pic-size w-100" alt="">
+    
+                                <div class="team-info">
+                                    <h4 class="mb-2 text-center">
+                                        Juvimie G. Retiza
+                                    </h4>
+                                </div>
+    
+                                <div class="social-share">
+                                    <ul class="social-icon">
+                                        <li class="social-icon-item">
+                                            <a href="https://www.facebook.com/Juvimie" class="social-icon-link bi-facebook"></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="team-thumb bg-white shadow-lg">
+                                <img src="{{ url_for('static', filename='images/karlshane.jpg') }}"
+                                    class="about-image img-fluid fixed-profile-pic-size w-100" alt="">
+    
+                                <div class="team-info">
+                                    <h4 class="mb-2 text-center">
+                                        Karl Shane A. Pakilit
+                                    </h4>
+                                </div>
+    
+                                <div class="social-share">
+                                    <ul class="social-icon">
+                                        <li class="social-icon-item">
+                                            <a href="https://www.facebook.com/imtheking30" class="social-icon-link bi-facebook"></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <div class="team-thumb bg-white shadow-lg">
+                                <img src="{{ url_for('static', filename='images/johnvence.jpg') }}"
+                                    class="about-image img-fluid fixed-profile-pic-size w-100" alt="">
+    
+                                <div class="team-info">
+                                    <h4 class="mb-2 text-center">
+                                        John Vence Gumapac
+                                    </h4>
+                                </div>
+    
+                                <div class="social-share">
+                                    <ul class="social-icon">
+                                        <li class="social-icon-item">
+                                            <a href="https://www.facebook.com/johnvencealbino.capamug" class="social-icon-link bi-facebook"></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </section>
+</html>
+{% endblock %}

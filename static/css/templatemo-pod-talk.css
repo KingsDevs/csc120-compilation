@@ -833,13 +833,18 @@ main {
   overflow: hidden;
 }
 
+.fixed-profile-pic-size
+{
+  height: 450px;
+}
+
 .team-info {
   background-color: var(--white-color);
   position: absolute;
   bottom: 0;
   right: 0;
   left: 0;
-  padding: 30px;
+  padding: 10px;
 }
 
 
