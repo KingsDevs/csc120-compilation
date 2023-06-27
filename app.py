@@ -35,28 +35,28 @@ def Deep_Reinforcement_learning():
 def car_price_prediction():
     return render_template('carpriceprediction.html', title="Car Price Prediction")
 
-@app.route('/concrete-strength-prediction-nn', methods=['POST', 'GET'])
+@app.route('/concrete-strength-prediction-nn')
 def concrete_strength_prediction_nn():
-    if request.method == 'POST':
-        data = request.form
+    # if request.method == 'POST':
+    #     data = request.form
 
-        cement = float(data.get('cement'))
-        slag = float(data.get('slag'))
-        flyash = float(data.get('flyash'))
-        water = float(data.get('water'))
-        superplasticizer = float(data.get('superplasticizer'))
-        coarseaggregate = float(data.get('coarseaggregate'))
-        fineaggregate = float(data.get('fineaggregate'))
-        age = float(data.get('age'))
+    #     cement = float(data.get('cement'))
+    #     slag = float(data.get('slag'))
+    #     flyash = float(data.get('flyash'))
+    #     water = float(data.get('water'))
+    #     superplasticizer = float(data.get('superplasticizer'))
+    #     coarseaggregate = float(data.get('coarseaggregate'))
+    #     fineaggregate = float(data.get('fineaggregate'))
+    #     age = float(data.get('age'))
 
-        data_x = np.array([cement, slag, flyash, water, superplasticizer, coarseaggregate, fineaggregate, age]).reshape(-1, 8)
+    #     data_x = np.array([cement, slag, flyash, water, superplasticizer, coarseaggregate, fineaggregate, age]).reshape(-1, 8)
         
-        concrete_strength_prediction_nnmodel = keras.models.load_model("mlmodels/concrete_strength_prediction_nn.h5")
+    #     concrete_strength_prediction_nnmodel = keras.models.load_model("mlmodels/concrete_strength_prediction_nn.h5")
 
-        prediction = concrete_strength_prediction_nnmodel.predict(data_x)[0]
-        prediction = format(prediction[0], '.3f')
+    #     prediction = concrete_strength_prediction_nnmodel.predict(data_x)[0]
+    #     prediction = format(prediction[0], '.3f')
 
-        return render_template("concretestrengthprediction_nn_result.html", title="Concrete Strength Prediction Deep Learning Ver", prediction=prediction)
+    #     return render_template("concretestrengthprediction_nn_result.html", title="Concrete Strength Prediction Deep Learning Ver", prediction=prediction)
 
 
     return render_template("concretestrengthprediction_nn.html", title="Concrete Strength Prediction Deep Learning Ver")
@@ -119,6 +119,18 @@ def predict_concrete_strength_lr():
     concrete_strength_prediction_lrmodel = pickle.load(open("mlmodels/concrete_strength_prediction_lr.pickle", "rb"))
     prediction = concrete_strength_prediction_lrmodel.predict(data_x)
     return jsonify({'csMpa': prediction[0]})
+
+@app.route('/predict/concrete-strength-prediction-nn', methods=['POST'])
+def predict_concrete_strength_nn():
+    data = request.get_json()
+    data_x = np.array([data['cement'], data['slag'], data['flyash'], data['water'], data['superplasticizer'],
+                      data['coarseaggregate'], data['fineaggregate'], data['age']]).reshape(-1, 8)
+    
+    concrete_strength_prediction_nnmodel = keras.models.load_model("mlmodels/concrete_strength_prediction_nn.h5")
+    prediction = concrete_strength_prediction_nnmodel.predict(data_x)[0]
+    prediction = format(prediction[0], '.3f')
+
+    return jsonify({'csMpa': prediction})
 
 @app.route('/predict/stroke-prediction', methods=['POST'])
 def predict_stroke():
