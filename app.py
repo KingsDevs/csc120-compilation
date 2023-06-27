@@ -97,7 +97,7 @@ def tomato_leaf_disease_prediction():
 
 @app.route('/rl')
 def serve_webgl():
-    return render_template("rl-game.html")
+    return render_template("rl-game.html", title="Autonomous Drone Navigation")
 
 
 @app.route('/predict/car-price-prediction', methods=['POST'])
