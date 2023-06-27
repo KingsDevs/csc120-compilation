@@ -492,7 +492,6 @@ main {
 
 .owl-carousel .owl-item .owl-carousel-verified-image {
   display: inline-block;
-  width: 30px;
   height: auto;
   position: relative;
   right: 5px;
