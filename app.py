@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return render_template('index.html', title="CSC 120 Compilation")
+    return render_template('index.html', title="CSC 120 COMPILATION")
 
 @app.route('/linear-regression')
 def lr():
@@ -83,9 +83,9 @@ def diabetes_prediction_nn():
         diabetes_prediction_model_nn = keras.models.load_model("mlmodels/diabetes_prediction_nn.h5")
         prediction = diabetes_prediction_model_nn.predict(data_x)[0]
 
-        return render_template("diabetesprediction-nn-result.html", title="Diabetes Prediction Logistical Regression Ver", prediction=prediction[0])
+        return render_template("diabetesprediction-nn-result.html", title="Diabetes Prediction Neural Network Regression Ver", prediction=prediction[0])
 
-    return render_template("diabetesprediction-nn.html", title="Diabetes Prediction Logistical Regression Ver")
+    return render_template("diabetesprediction-nn.html", title="Diabetes Prediction Neural Network Regression Ver")
 
 @app.route('/breast-cancer-prediction')
 def breast_cancer_prediction():
