@@ -243,8 +243,9 @@ def fetch_image_tomato_leaf_disease():
 
     image_path = f"{label}/{label}_{random.choice([1,2,3,4,5,6,7,8,9,10])}.jpg"
 
-    with open(image_path, 'rb') as image_file:
-        encoded_image = base64.b64encode(image_file.read()).decode('utf-8')
+    image_file = open(image_path, 'rb')
+    encoded_image = base64.b64encode(image_file.read()).decode('utf-8')
+    image_file.close()
     
 
     return jsonify({
