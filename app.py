@@ -6,7 +6,7 @@ import pickle
 import base64
 from io import BytesIO
 import random
-import os
+import sqlite3
 
 app = Flask(__name__)
 
@@ -240,18 +240,31 @@ def predict_tomato_leaf_disease():
 
 @app.route('/fetch-image-tomato-leaf-disease', methods=['POST'])
 def fetch_image_tomato_leaf_disease():
-    label = random.choice(["bacteria_spot", "early_blight", "healthy", "late_blight", "leaf_mold", "mosaic_virus", "septoria_leaf_spot", "spider_mites_two_spotted_mite", "target_spot", "yellow_leaf_curl_virus"])
+    # label = random.choice(["bacteria_spot", "early_blight", "healthy", "late_blight", "leaf_mold", "mosaic_virus", "septoria_leaf_spot", "spider_mites_two_spotted_mite", "target_spot", "yellow_leaf_curl_virus"])
 
-    # Get the absolute path of the directory containing your script
-    script_dir = os.path.dirname(os.path.abspath(__file__))
+    # # Get the absolute path of the directory containing your script
+    # script_dir = os.path.dirname(os.path.abspath(__file__))
 
-    # Construct the absolute path to the image
-    image_path = os.path.join(script_dir, "static", "images", "tomato_leaf_images", label, f"{label}_{random.choice([1,2,3,4,5,6,7,8,9,10])}.jpg")
+    # # Construct the absolute path to the image
+    # image_path = os.path.join(script_dir, "static", "images", "tomato_leaf_images", label, f"{label}_{random.choice([1,2,3,4,5,6,7,8,9,10])}.jpg")
 
+    conn = sqlite3.connect('tomato_leaf_images.db')
+    cursor = conn.cursor()
 
-    image_file = open(image_path, 'rb')
-    encoded_image = base64.b64encode(image_file.read()).decode('utf-8')
-    image_file.close()
+    # Execute the select query to get a random image
+    select_query = "SELECT * FROM images ORDER BY RANDOM() LIMIT 1"
+    cursor.execute(select_query)
+
+    result = cursor.fetchone()
+
+    # Close the connection
+    conn.close()
+
+    id, image_file, label = result
+
+    # image_file = open(image_path, 'rb')
+    encoded_image = base64.b64encode(image_file).decode('utf-8')
+    # image_file.close()
     
 
     return jsonify({
