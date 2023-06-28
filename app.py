@@ -3,6 +3,9 @@ import numpy as np
 from tensorflow import keras
 from PIL import Image
 import pickle
+import base64
+from io import BytesIO
+import random
 
 app = Flask(__name__)
 
@@ -195,8 +198,16 @@ def predict_breast_cancer():
 
 @app.route('/predict/tomato-leaf-disease-prediction', methods=['POST'])
 def predict_tomato_leaf_disease():
-    image_file = request.files['image']
-    image = Image.open(image_file)
+    imageFetched = request.form.get('isImageFetched')
+
+    image = None
+    if imageFetched == 'true':
+        image_file = request.form.get('image')
+        image_data = base64.b64decode(image_file)
+        image = Image.open(BytesIO(image_data))
+    else:
+        image_file = request.files['image']
+        image = Image.open(image_file)
 
     model_index = int(request.form.get('model'))
     if model_index < 0: 
@@ -225,6 +236,22 @@ def predict_tomato_leaf_disease():
         'Mosaic Virus': float(predictions[0][8]),
         'Healthy': float(predictions[0][9])
     })
+
+@app.route('/fetch-image-tomato-leaf-disease', methods=['POST'])
+def fetch_image_tomato_leaf_disease():
+    label = random.choice(["bacteria_spot", "early_blight", "healthy", "late_blight", "leaf_mold", "mosaic_virus", "septoria_leaf_spot", "spider_mites_two_spotted_mite", "target_spot", "yellow_leaf_curl_virus"])
+
+    image_path = f"static/tomato_leaf_images/{label}/{label}_{random.choice([1,2,3,4,5,6,7,8,9,10])}.jpg"
+
+    with open(image_path, 'rb') as image_file:
+        encoded_image = base64.b64encode(image_file.read()).decode('utf-8')
+    
+
+    return jsonify({
+        'image': encoded_image,
+        'label': label
+    })
+
 @app.route('/about')
 def about():
     return render_template("about.html", title="About")
