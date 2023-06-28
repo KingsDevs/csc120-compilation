@@ -67,10 +67,54 @@
 
                             <h6 class="mt-3">ACCURACY:</h6>
                             <ul>
-                                <li>Vanilla CNN: <b>86%</b></li>
-                                <li>InceptionV3: <b>52%</b></li>
+                                <li>
+                                    <a data-bs-toggle="collapse" href="#vanilla-cnn-arch" role="button" aria-expanded="false" aria-controls="vanilla-cnn-arch">
+                                        Vanilla CNN: <b>86%</b> (click to see its architecture)
+                                    </a>
+                                </li>
+                                <li>
+                                    <a data-bs-toggle="collapse" href="#inceptionv3-arch" role="button" aria-expanded="false" aria-controls="inceptionv3-arch">
+                                        InceptionV3: <b>52%</b> (click to see its architecture)
+                                    </a>
+                                </li>
                                 <li>Pre-trained Model: <b>98%</b></li>
                             </ul>
+
+                            <div class="collapse" id="vanilla-cnn-arch">
+                                <div class="card card-body">
+                                    <p><b>Hidden Layers:</b></p>
+                                    <ul>
+                                        <li>Data Augmentation Layer</li>
+                                        <li>Convulotional Layer: 32 filters of size 3x3 input, ReLU activation function</li>
+                                        <li>Max Pooling Layer: 2x2 pool size</li>
+                                        <li>Convulotional Layer: 16 filters of size 3x3 input, ReLU activation function</li>
+                                        <li>Max Pooling Layer: 2x2 pool size</li>
+                                        <li>Convulotional Layer: 32 filters of size 3x3 input, ReLU activation function</li>
+                                        <li>Max Pooling Layer: 2x2 pool size</li>
+                                        <li>Global Average Pooling</li>
+                                    </ul>
+
+                                    <p><b>Output Layer:</b></p>
+                                    <ul>
+                                        <li>Dense Layer with 8 nodes and with softmax activation function</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="collapse" id="inceptionv3-arch">
+                                <div class="card card-body">
+                                    <p><b>Hidden Layers:</b></p>
+                                    <ul>
+                                        <li>Data Augmentation Layer</li>
+                                        <li>InceptionV3 Layer</li>
+                                    </ul>
+
+                                    <p><b>Output Layer:</b></p>
+                                    <ul>
+                                        <li>Dense Layer with 8 nodes and with softmax activation function</li>
+                                    </ul>
+                                </div>
+                            </div>
 
                             <h6 class="mt-3">HOW TO USE</h6>
                             <p><b>To use the tomato leaf disease application, simply upload an image of the affected tomato leaf and click "predict." The application will analyze the image and provide a prediction of the specific disease affecting the tomato plant.</b></p>
