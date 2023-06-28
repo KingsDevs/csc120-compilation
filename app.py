@@ -241,7 +241,7 @@ def predict_tomato_leaf_disease():
 def fetch_image_tomato_leaf_disease():
     label = random.choice(["bacteria_spot", "early_blight", "healthy", "late_blight", "leaf_mold", "mosaic_virus", "septoria_leaf_spot", "spider_mites_two_spotted_mite", "target_spot", "yellow_leaf_curl_virus"])
 
-    image_path = f"static/tomato_leaf_images/{label}/{label}_{random.choice([1,2,3,4,5,6,7,8,9,10])}.jpg"
+    image_path = f"tomato_leaf_images/{label}/{label}_{random.choice([1,2,3,4,5,6,7,8,9,10])}.jpg"
 
     with open(image_path, 'rb') as image_file:
         encoded_image = base64.b64encode(image_file.read()).decode('utf-8')
